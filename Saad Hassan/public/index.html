@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blush & Brush | Beauty House & Salon Management System</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Tailwind CSS (for modern UI utility components) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            pink: '#D86B81',
+                            darkpink: '#c4576d',
+                            light: '#FFF5F6',
+                            cream: '#fff8f6',
+                            dark: '#2C2627'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-[#FFF5F6] text-[#2C2627] font-sans">
+
+    <!-- =========================================
+         1. STARTUP LOADER ANIMATION
+         ========================================= -->
+    <div id="loader">
+        <div class="loader-content">
+            <div class="loader-icon">
+                <i class="fa-solid fa-spa"></i>
+            </div>
+            <h1 class="logo-text">Blush &amp; Brush</h1>
+            <div class="loader-bar"></div>
+            <p>WHERE BEAUTY MEETS ELEGANCE</p>
+        </div>
+    </div>
+
+
+    <!-- =========================================
+         2. NAVIGATION HEADER
+         ========================================= -->
+    <header class="sticky top-0 z-40 py-3 px-4 sm:px-6 lg:px-8 bg-[#FFF5F6]/90 backdrop-blur-md transition-all">
+        <nav class="max-w-7xl mx-auto bg-white rounded-2xl shadow-sm border border-pink-100/90 px-4 sm:px-6 py-2.5 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="#home" class="flex items-center gap-2.5 group">
+                <div class="w-10 h-10 rounded-full bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-xl font-bold group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-spa"></i>
+                </div>
+                <div>
+                    <span class="text-lg font-bold tracking-wider font-serif text-[#2C2627] block leading-none">BLUSH &amp; BRUSH</span>
+                    <span class="text-[10px] tracking-[0.25em] text-[#D86B81] uppercase block font-semibold">BEAUTY HOUSE</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center space-x-7 text-xs font-semibold uppercase tracking-wider text-gray-700">
+                <a href="#home" class="hover:text-[#D86B81] transition-colors py-1">Home</a>
+                <a href="#about" class="hover:text-[#D86B81] transition-colors py-1">About Us</a>
+                <a href="#services" class="hover:text-[#D86B81] transition-colors py-1">Services</a>
+                <a href="#gallery" class="hover:text-[#D86B81] transition-colors py-1">Gallery</a>
+                <a href="#contact" class="hover:text-[#D86B81] transition-colors py-1">Contact</a>
+            </div>
+
+            <!-- Header Action Controls -->
+            <div class="flex items-center space-x-3">
+
+                <!-- Auth Buttons Container (Dynamically updated by JS) -->
+                <div id="navAuthContainer" class="flex items-center space-x-2">
+                    <button id="openAuthBtn" class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#D86B81] bg-[#FFF0F3] hover:bg-[#D86B81] hover:text-white rounded-xl transition-all">
+                        <i class="fa-regular fa-user mr-1"></i> Login / Signup
+                    </button>
+                    <button id="navBookBtn" class="hidden sm:inline-block bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold tracking-wider uppercase px-5 py-2.5 rounded-xl shadow-sm hover:shadow-md transition-all">
+                        Book Appointment
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-gray-700 p-2 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+
+        </nav>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto mt-2 bg-white rounded-2xl border border-pink-100 p-4 space-y-3 shadow-md text-center">
+            <a href="#home" class="block text-gray-700 text-sm font-semibold hover:text-[#D86B81]">Home</a>
+            <a href="#about" class="block text-gray-700 text-sm font-semibold hover:text-[#D86B81]">About Us</a>
+            <a href="#services" class="block text-gray-700 text-sm font-semibold hover:text-[#D86B81]">Services</a>
+            <a href="#contact" class="block text-gray-700 text-sm font-semibold hover:text-[#D86B81]">Contact</a>
+            <div id="mobileAuthContainer" class="pt-2 border-t border-pink-50"></div>
+        </div>
+    </header>
+
+
+    <!-- =========================================
+         3. HERO LANDING SECTION
+         ========================================= -->
+    <section id="home" class="relative pt-6 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-visible">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[75vh]">
+            
+            <!-- Hero Text -->
+            <div class="lg:col-span-6 space-y-5 text-center lg:text-left">
+                <div class="inline-flex items-center space-x-2 bg-[#FFF0F3] border border-pink-200/80 px-3.5 py-1.5 rounded-full">
+                    <span class="w-2 h-2 rounded-full bg-[#D86B81] animate-ping"></span>
+                    <span class="text-xs font-bold tracking-[0.2em] text-[#D86B81] uppercase">Where Beauty Meets Elegance</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#2C2627] leading-tight">
+                    Reveal Your <span class="text-[#D86B81] italic">Natural Beauty</span>
+                </h1>
+                <p class="text-sm sm:text-base text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                    Step into a sanctuary of relaxation and world-class beauty care. From bespoke hair treatments to organic skin therapy and luxury bridal styling.
+                </p>
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                    <a href="#services" class="px-7 py-3.5 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold tracking-wider uppercase rounded-xl shadow-md hover:shadow-lg transition-all">
+                        Explore Services
+                    </a>
+                    <button id="heroBookBtn" class="px-7 py-3.5 bg-white text-[#2C2627] hover:bg-[#2C2627] hover:text-white text-xs font-semibold tracking-wider uppercase border border-pink-200 rounded-xl shadow-xs transition-all">
+                        Book Appointment
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Image Showcase -->
+            <div class="lg:col-span-6 flex justify-center">
+                <div class="relative w-full max-w-md lg:max-w-lg rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-pink-100">
+                    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80" alt="Blush & Brush Salon Model" class="w-full h-[450px] object-cover object-center hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-2xl border border-pink-100 shadow-lg flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold text-gray-900">Rated #1 Salon in DHA Lahore</p>
+                            <p class="text-[11px] text-gray-500">Over 15,000+ happy clients pampered</p>
+                        </div>
+                        <div class="flex text-amber-400 text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- =========================================
+         4. FEATURES OVERLAP CARDS
+         ========================================= -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div class="bg-white rounded-3xl shadow-xl border border-pink-100 p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <div class="flex items-center space-x-4 p-2">
+                <div class="w-12 h-12 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center shrink-0 text-xl">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <div>
+                    <h4 class="font-serif font-bold text-base text-[#2C2627]">Premium Products</h4>
+                    <p class="text-xs text-gray-500">100% organic & dermatologically tested</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-4 p-2">
+                <div class="w-12 h-12 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center shrink-0 text-xl">
+                    <i class="fa-solid fa-user-ninja"></i>
+                </div>
+                <div>
+                    <h4 class="font-serif font-bold text-base text-[#2C2627]">Expert Stylists</h4>
+                    <p class="text-xs text-gray-500">Internationally certified professionals</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-4 p-2">
+                <div class="w-12 h-12 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center shrink-0 text-xl">
+                    <i class="fa-solid fa-shield-virus"></i>
+                </div>
+                <div>
+                    <h4 class="font-serif font-bold text-base text-[#2C2627]">Hygienic &amp; Safe</h4>
+                    <p class="text-xs text-gray-500">Medical grade tool sterilization</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-4 p-2">
+                <div class="w-12 h-12 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center shrink-0 text-xl">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <div>
+                    <h4 class="font-serif font-bold text-base text-[#2C2627]">100% Satisfaction</h4>
+                    <p class="text-xs text-gray-500">Bespoke personalized consultations</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- =========================================
+         5. ABOUT US SECTION
+         ========================================= -->
+    <section id="about" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-pink-100/80">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            <!-- 3 Image Grid -->
+            <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+                <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=500&q=80" alt="Beauty Care" class="rounded-2xl shadow-md object-cover w-full h-[340px]">
+                <div class="space-y-3">
+                    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=500&q=80" alt="Nail Styling" class="rounded-2xl shadow-md object-cover w-full h-[164px]">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=500&q=80" alt="Spa Care" class="rounded-2xl shadow-md object-cover w-full h-[164px]">
+                </div>
+            </div>
+
+            <!-- Story Content -->
+            <div class="lg:col-span-7 space-y-5">
+                <span class="text-xs font-bold tracking-[0.2em] text-[#D86B81] uppercase block">Sanctuary of Elegance</span>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-[#2C2627]">
+                    Crafting Unforgettable Beauty Experiences Since 2018
+                </h2>
+                <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                    Blush &amp; Brush was founded with a clear vision: to create a luxurious, soothing environment where high-end cosmetics meet compassionate client care. Our salon has grown into Lahore's premier target destination for signature haircuts, rejuvenating facials, and bridal styling.
+                </p>
+                
+                <!-- Founder Quote -->
+                <div class="p-4 bg-white border-l-4 border-[#D86B81] rounded-r-2xl border-pink-100 shadow-xs">
+                    <p class="text-xs italic text-gray-700 font-serif">
+                        "Beauty is not just how you look; it is an emotion of confidence and tranquility that stays with you."
+                    </p>
+                    <span class="text-[11px] font-bold text-[#D86B81] block mt-1 uppercase tracking-wider">— Founder, Blush &amp; Brush</span>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-4 gap-4 text-center pt-2">
+                    <div class="p-3 bg-white rounded-xl border border-pink-100">
+                        <span class="text-2xl sm:text-3xl font-serif font-bold text-[#D86B81]">8+</span>
+                        <p class="text-[10px] font-bold text-gray-600 uppercase">Years</p>
+                    </div>
+                    <div class="p-3 bg-white rounded-xl border border-pink-100">
+                        <span class="text-2xl sm:text-3xl font-serif font-bold text-[#D86B81]">15k+</span>
+                        <p class="text-[10px] font-bold text-gray-600 uppercase">Clients</p>
+                    </div>
+                    <div class="p-3 bg-white rounded-xl border border-pink-100">
+                        <span class="text-2xl sm:text-3xl font-serif font-bold text-[#D86B81]">12+</span>
+                        <p class="text-[10px] font-bold text-gray-600 uppercase">Stylists</p>
+                    </div>
+                    <div class="p-3 bg-white rounded-xl border border-pink-100">
+                        <span class="text-2xl sm:text-3xl font-serif font-bold text-[#D86B81]">100%</span>
+                        <p class="text-[10px] font-bold text-gray-600 uppercase">Organic</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- =========================================
+         6. SERVICES & OFFERS SECTION
+         ========================================= -->
+    <section id="services" class="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-pink-100/80">
+        <div class="text-center max-w-xl mx-auto mb-10 space-y-2">
+            <span class="text-xs font-bold tracking-[0.2em] text-[#D86B81] uppercase">Tailored Treatments</span>
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-[#2C2627]">Our Popular Services</h2>
+            <p class="text-xs text-gray-500">Explore our wide variety of professional beauty services.</p>
+        </div>
+
+        <!-- 6 Service Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div class="bg-white p-7 rounded-2xl border border-pink-100 shadow-xs text-center flex flex-col items-center hover:shadow-xl hover:border-[#D86B81]/40 transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-[#scissors] fa-scissors"></i>
+                </div>
+                <h3 class="text-base font-serif font-bold text-gray-900 mb-1">Haircut &amp; Styling</h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4">Precision cutting, keratin treatments, and custom hair coloring.</p>
+                <button class="bookServiceBtn mt-auto text-xs font-bold text-[#D86B81] uppercase tracking-wider hover:underline" data-service="Haircut & Styling">Book This Service &rarr;</button>
+            </div>
+
+            <div class="bg-white p-7 rounded-2xl border border-pink-100 shadow-xs text-center flex flex-col items-center hover:shadow-xl hover:border-[#D86B81]/40 transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-paint-brush"></i>
+                </div>
+                <h3 class="text-base font-serif font-bold text-gray-900 mb-1">Makeup &amp; Bridal</h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4">Glamorous party makeup and HD bridal makeover sessions.</p>
+                <button class="bookServiceBtn mt-auto text-xs font-bold text-[#D86B81] uppercase tracking-wider hover:underline" data-service="Makeup Session">Book This Service &rarr;</button>
+            </div>
+
+            <div class="bg-white p-7 rounded-2xl border border-pink-100 shadow-xs text-center flex flex-col items-center hover:shadow-xl hover:border-[#D86B81]/40 transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-face-smile-beam"></i>
+                </div>
+                <h3 class="text-base font-serif font-bold text-gray-900 mb-1">Facial &amp; Skin Care</h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4">Deep cleansing, hydra-facials, and skin rejuvenation treatments.</p>
+                <button class="bookServiceBtn mt-auto text-xs font-bold text-[#D86B81] uppercase tracking-wider hover:underline" data-service="Facial Treatment">Book This Service &rarr;</button>
+            </div>
+
+            <div class="bg-white p-7 rounded-2xl border border-pink-100 shadow-xs text-center flex flex-col items-center hover:shadow-xl hover:border-[#D86B81]/40 transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-hand-sparkles"></i>
+                </div>
+                <h3 class="text-base font-serif font-bold text-gray-900 mb-1">Nail Art &amp; Extensions</h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4">Acrylic extension, gel manicures, and custom nail art designs.</p>
+                <button class="bookServiceBtn mt-auto text-xs font-bold text-[#D86B81] uppercase tracking-wider hover:underline" data-service="Manicure & Pedicure">Book This Service &rarr;</button>
+            </div>
+
+            <div class="bg-white p-7 rounded-2xl border border-pink-100 shadow-xs text-center flex flex-col items-center hover:shadow-xl hover:border-[#D86B81]/40 transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-hot-tub-person"></i>
+                </div>
+                <h3 class="text-base font-serif font-bold text-gray-900 mb-1">Spa &amp; Body Massage</h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4">Full body aromatherapy, hot stone therapy, and relaxation massages.</p>
+                <button class="bookServiceBtn mt-auto text-xs font-bold text-[#D86B81] uppercase tracking-wider hover:underline" data-service="Spa & Massage">Book This Service &rarr;</button>
+            </div>
+
+            <div class="bg-white p-7 rounded-2xl border border-pink-100 shadow-xs text-center flex flex-col items-center hover:shadow-xl hover:border-[#D86B81]/40 transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-[#eye] fa-eye"></i>
+                </div>
+                <h3 class="text-base font-serif font-bold text-gray-900 mb-1">Eyebrow &amp; Lash Care</h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4">Lash lifting, microblading, and eyebrow threading.</p>
+                <button class="bookServiceBtn mt-auto text-xs font-bold text-[#D86B81] uppercase tracking-wider hover:underline" data-service="Hair Treatment">Book This Service &rarr;</button>
+            </div>
+
+        </div>
+
+        <!-- Pamper Offer Banner -->
+        <div class="mt-12 relative rounded-3xl overflow-hidden shadow-lg min-h-[260px] flex items-center bg-gradient-to-r from-pink-500 to-[#D86B81] p-8 sm:p-12 text-white">
+            <div class="relative z-10 max-w-lg space-y-3">
+                <span class="text-xs font-bold uppercase tracking-widest bg-white/20 px-3 py-1 rounded-full">Limited Season Offer</span>
+                <h3 class="text-3xl font-serif font-bold">Pamper Yourself — You Deserve It!</h3>
+                <p class="text-xs sm:text-sm text-pink-100 leading-relaxed">
+                    Book any beauty package today and enjoy a complimentary organic scalp massage & glow facial setup.
+                </p>
+                <div class="pt-2">
+                    <button class="openBookingModalBtn px-6 py-3 bg-white text-[#D86B81] hover:bg-pink-100 font-semibold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all">
+                        Claim &amp; Book Now
+                    </button>
+                </div>
+            </div>
+            <div class="hidden md:block absolute right-8 bottom-0 opacity-20 text-9xl">
+                <i class="fa-solid fa-gift"></i>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================================
+         7. FOOTER / CONTACT SECTION
+         ========================================= -->
+    <footer id="contact" class="bg-white border-t border-pink-100 text-[#2C2627] pt-14 pb-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-10 border-b border-pink-100">
+                
+                <!-- Column 1 -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-spa"></i>
+                        </div>
+                        <span class="font-serif font-bold text-lg">BLUSH &amp; BRUSH</span>
+                    </div>
+                    <p class="text-xs text-gray-500 leading-relaxed">
+                        Your sanctuary of elegance and luxury beauty in DHA Lahore. Crafting beauty confidence with certified care.
+                    </p>
+                    <div class="flex space-x-3 pt-1">
+                        <a href="#" class="w-8 h-8 rounded-full bg-[#FFF0F3] text-[#D86B81] hover:bg-[#D86B81] hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-[#FFF0F3] text-[#D86B81] hover:bg-[#D86B81] hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-[#FFF0F3] text-[#D86B81] hover:bg-[#D86B81] hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#D86B81]">Quick Links</h4>
+                    <ul class="space-y-2 text-xs text-gray-600">
+                        <li><a href="#home" class="hover:text-[#D86B81]">Home</a></li>
+                        <li><a href="#about" class="hover:text-[#D86B81]">About Us</a></li>
+                        <li><a href="#services" class="hover:text-[#D86B81]">Services</a></li>
+                        <li><button class="openBookingModalBtn hover:text-[#D86B81]">Book Appointment</button></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#D86B81]">Contact Us</h4>
+                    <ul class="space-y-2.5 text-xs text-gray-600">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-location-dot text-[#D86B81]"></i> <span>Main Boulevard, Phase 5, DHA, Lahore</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-phone text-[#D86B81]"></i> <span>+92 300 1234567</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-envelope text-[#D86B81]"></i> <span>info@blushandbrush.com</span></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4 -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#D86B81]">Opening Hours</h4>
+                    <ul class="space-y-2 text-xs text-gray-600">
+                        <li class="flex justify-between border-b border-pink-50 pb-1"><span>Mon - Thu:</span> <span class="font-medium">11:00 AM - 8:00 PM</span></li>
+                        <li class="flex justify-between border-b border-pink-50 pb-1"><span>Fri - Sat:</span> <span class="font-medium">10:00 AM - 9:00 PM</span></li>
+                        <li class="flex justify-between"><span>Sunday:</span> <span class="font-medium text-[#D86B81]">12:00 PM - 7:00 PM</span></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-400">
+                <p>&copy; 2026 Blush &amp; Brush Beauty House. All Rights Reserved.</p>
+                <div class="space-x-3 mt-2 sm:mt-0">
+                    <a href="#" class="hover:text-gray-600">Privacy Policy</a>
+                    <span>&bull;</span>
+                    <a href="#" class="hover:text-gray-600">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- =========================================
+         8. AUTH MODAL (LOGIN & SIGNUP TABS)
+         ========================================= -->
+    <div id="authModal" class="modal-overlay hidden">
+        <div class="modal-card max-w-md w-full p-6 sm:p-8 bg-white rounded-3xl shadow-2xl relative border border-pink-100">
+            <button id="closeAuthModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Modal Brand Header -->
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-full bg-[#FFF0F3] text-[#D86B81] mx-auto flex items-center justify-center text-xl mb-2 font-bold">
+                    <i class="fa-solid fa-spa"></i>
+                </div>
+                <h3 class="text-xl font-serif font-bold text-[#2C2627]">BLUSH &amp; BRUSH</h3>
+                <p class="text-xs text-gray-500">Access your appointment dashboard</p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex border-b border-pink-100 mb-6 text-sm font-semibold">
+                <button id="tabLoginBtn" class="flex-1 py-2.5 text-center text-[#D86B81] border-b-2 border-[#D86B81] transition-all">
+                    Login
+                </button>
+                <button id="tabSignupBtn" class="flex-1 py-2.5 text-center text-gray-400 border-b-2 border-transparent hover:text-gray-600 transition-all">
+                    Signup
+                </button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Email Address</label>
+                    <div class="relative">
+                        <i class="fa-regular fa-envelope absolute left-3.5 top-3 text-gray-400 text-sm"></i>
+                        <input type="email" id="loginEmail" required placeholder="name@example.com" class="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] focus:ring-1 focus:ring-[#D86B81] outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Password</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-3 text-gray-400 text-sm"></i>
+                        <input type="password" id="loginPassword" required placeholder="Enter password" class="w-full pl-10 pr-10 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] focus:ring-1 focus:ring-[#D86B81] outline-none">
+                        <button type="button" class="togglePasswordBtn absolute right-3.5 top-3 text-gray-400 hover:text-gray-600 text-xs">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-xs text-gray-500 bg-pink-50 p-2.5 rounded-xl border border-pink-100">
+                    <p class="font-bold text-gray-700 mb-1">🔑 Demo Quick Login Credentials:</p>
+                    <p>• Admin: <span class="font-mono text-[#D86B81]">admin@blushandbrush.com</span> / <span class="font-mono">admin123</span></p>
+                    <p>• Client: <span class="font-mono text-[#D86B81]">sarah@gmail.com</span> / <span class="font-mono">user123</span></p>
+                </div>
+
+                <div id="loginErrorMsg" class="hidden text-xs text-red-600 bg-red-50 p-2.5 rounded-xl"></div>
+
+                <button type="submit" class="w-full py-3 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold uppercase tracking-wider rounded-xl shadow-md transition-all">
+                    Login to Account
+                </button>
+            </form>
+
+            <!-- SIGNUP FORM (Hidden by default) -->
+            <form id="signupForm" class="hidden space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Full Name</label>
+                    <div class="relative">
+                        <i class="fa-regular fa-user absolute left-3.5 top-3 text-gray-400 text-sm"></i>
+                        <input type="text" id="signupName" required placeholder="e.g. Ayesha Khan" class="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Email Address</label>
+                    <div class="relative">
+                        <i class="fa-regular fa-envelope absolute left-3.5 top-3 text-gray-400 text-sm"></i>
+                        <input type="email" id="signupEmail" required placeholder="ayesha@gmail.com" class="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Phone Number</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-phone absolute left-3.5 top-3 text-gray-400 text-sm"></i>
+                        <input type="tel" id="signupPhone" required placeholder="+92 300 1234567" class="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Password</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-3 text-gray-400 text-sm"></i>
+                        <input type="password" id="signupPassword" required placeholder="Create password" class="w-full pl-10 pr-10 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] outline-none">
+                        <button type="button" class="togglePasswordBtn absolute right-3.5 top-3 text-gray-400 text-xs">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Account Role</label>
+                    <select id="signupRole" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] outline-none bg-white">
+                        <option value="user">Client / User</option>
+                        <option value="admin">Salon Administrator</option>
+                    </select>
+                </div>
+
+                <div id="signupErrorMsg" class="hidden text-xs text-red-600 bg-red-50 p-2.5 rounded-xl"></div>
+
+                <button type="submit" class="w-full py-3 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold uppercase tracking-wider rounded-xl shadow-md transition-all">
+                    Register New Account
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+
+    <!-- =========================================
+         9. USER DASHBOARD MODAL
+         ========================================= -->
+    <div id="userDashboardModal" class="modal-overlay hidden">
+        <div class="modal-card max-w-4xl w-full p-6 sm:p-8 bg-white rounded-3xl shadow-2xl relative border border-pink-100 max-h-[90vh] overflow-y-auto">
+            <button id="closeUserDashboardBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="flex items-center justify-between border-b border-pink-100 pb-4 mb-6">
+                <div>
+                    <span class="text-[10px] font-bold text-[#D86B81] uppercase tracking-widest">Client Portal</span>
+                    <h3 class="text-2xl font-serif font-bold text-[#2C2627]" id="userNameHeader">Welcome, Client</h3>
+                    <p class="text-xs text-gray-500" id="userEmailHeader">client@example.com</p>
+                </div>
+                <button id="userLogoutBtn" class="px-3.5 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-xl">
+                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
+                </button>
+            </div>
+
+            <!-- Content Grid: Book Appointment Form + My Appointments -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Book Appointment Form -->
+                <div class="lg:col-span-5 bg-[#FFF5F6] p-5 rounded-2xl border border-pink-100">
+                    <h4 class="font-serif font-bold text-base text-[#2C2627] mb-3">Book New Appointment</h4>
+                    <form id="userBookingForm" class="space-y-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Your Full Name</label>
+                            <input type="text" id="bookName" required class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="bookPhone" required placeholder="+92 300 1234567" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Select Service</label>
+                            <select id="bookService" required class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none bg-white">
+                                <option value="">-- Choose a Service --</option>
+                                <option value="Haircut & Styling">Haircut &amp; Styling</option>
+                                <option value="Hair Coloring">Hair Coloring</option>
+                                <option value="Facial Treatment">Facial &amp; Skin Treatment</option>
+                                <option value="Manicure & Pedicure">Manicure &amp; Pedicure</option>
+                                <option value="Spa & Massage">Spa &amp; Body Massage</option>
+                                <option value="Makeup Session">HD Makeup Session</option>
+                                <option value="Hair Treatment">Eyebrow &amp; Lash Treatment</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-700 mb-1">Date</label>
+                                <input type="date" id="bookDate" required class="w-full px-2.5 py-2 text-xs rounded-xl border border-pink-200 outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-700 mb-1">Time</label>
+                                <input type="time" id="bookTime" required class="w-full px-2.5 py-2 text-xs rounded-xl border border-pink-200 outline-none bg-white">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Special Remarks / Notes</label>
+                            <textarea id="bookRemarks" rows="2" placeholder="e.g. Skin sensitivity or style preference" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-2.5 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold uppercase tracking-wider rounded-xl shadow-xs transition-all">
+                            Submit Appointment
+                        </button>
+                    </form>
+                </div>
+
+                <!-- My Appointments List -->
+                <div class="lg:col-span-7 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-serif font-bold text-base text-[#2C2627]">My Booked Appointments</h4>
+                        <button id="refreshUserApptsBtn" class="text-xs text-[#D86B81] hover:underline font-semibold">
+                            <i class="fa-solid fa-arrows-rotate mr-1"></i> Refresh
+                        </button>
+                    </div>
+
+                    <div id="userAppointmentsContainer" class="space-y-3 min-h-[250px]">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =========================================
+         10. ADMIN DASHBOARD MODAL
+         ========================================= -->
+    <div id="adminDashboardModal" class="modal-overlay hidden">
+        <div class="modal-card max-w-6xl w-full p-6 sm:p-8 bg-white rounded-3xl shadow-2xl relative border border-pink-100 max-h-[92vh] overflow-y-auto">
+            <button id="closeAdminDashboardBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Admin Header -->
+            <div class="flex flex-wrap items-center justify-between border-b border-pink-100 pb-4 mb-6 gap-4">
+                <div>
+                    <span class="text-[10px] font-bold text-[#D86B81] uppercase tracking-widest">Salon Management System</span>
+                    <h3 class="text-2xl font-serif font-bold text-[#2C2627]">Administrator Dashboard</h3>
+                    <p class="text-xs text-gray-500" id="adminDateDisplay">Today's Schedule &amp; Client Overview</p>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <button id="adminAddApptBtn" class="px-4 py-2 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold rounded-xl shadow-xs">
+                        <i class="fa-solid fa-plus mr-1"></i> Add Appointment
+                    </button>
+                    <button id="adminLogoutBtn" class="px-3.5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-xl">
+                        <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Metric Summary Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
+                <div class="bg-pink-50 p-4 rounded-2xl border border-pink-100 text-center">
+                    <span class="block text-2xl font-serif font-bold text-[#D86B81]" id="countTotal">0</span>
+                    <span class="text-[10px] font-bold text-gray-600 uppercase">Total</span>
+                </div>
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 text-center">
+                    <span class="block text-2xl font-serif font-bold text-amber-600" id="countPending">0</span>
+                    <span class="text-[10px] font-bold text-gray-600 uppercase">Pending</span>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 text-center">
+                    <span class="block text-2xl font-serif font-bold text-blue-600" id="countUpcoming">0</span>
+                    <span class="text-[10px] font-bold text-gray-600 uppercase">Upcoming</span>
+                </div>
+                <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 text-center">
+                    <span class="block text-2xl font-serif font-bold text-emerald-600" id="countCompleted">0</span>
+                    <span class="text-[10px] font-bold text-gray-600 uppercase">Completed</span>
+                </div>
+                <div class="bg-rose-50 p-4 rounded-2xl border border-rose-100 text-center col-span-2 sm:col-span-1">
+                    <span class="block text-2xl font-serif font-bold text-rose-600" id="countCancelled">0</span>
+                    <span class="text-[10px] font-bold text-gray-600 uppercase">Cancelled</span>
+                </div>
+            </div>
+
+            <!-- Filter & Search Controls -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs font-semibold text-gray-600">Filter Status:</span>
+                    <select id="adminStatusFilter" class="px-3 py-1.5 text-xs rounded-xl border border-pink-200 outline-none bg-white">
+                        <option value="ALL">All Statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Upcoming">Upcoming / Accepted</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled / Rejected</option>
+                    </select>
+                </div>
+                <div class="relative w-full sm:w-64">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400 text-xs"></i>
+                    <input type="text" id="adminSearchInput" placeholder="Search by client or service..." class="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl border border-pink-200 outline-none">
+                </div>
+            </div>
+
+            <!-- Appointments Table -->
+            <div class="overflow-x-auto rounded-2xl border border-pink-100 shadow-xs">
+                <table class="w-full text-left text-xs text-gray-700">
+                    <thead class="bg-[#FFF5F6] text-gray-800 uppercase font-bold text-[10px] tracking-wider border-b border-pink-100">
+                        <tr>
+                            <th class="p-3">Time &amp; Date</th>
+                            <th class="p-3">Client</th>
+                            <th class="p-3">Service</th>
+                            <th class="p-3">Phone</th>
+                            <th class="p-3">Status</th>
+                            <th class="p-3">Client Note / Admin Message</th>
+                            <th class="p-3 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody" class="divide-y divide-pink-50">
+                        <!-- Rendered by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =========================================
+         11. ADMIN SEND CUSTOM MESSAGE MODAL
+         ========================================= -->
+    <div id="adminMessageModal" class="modal-overlay hidden">
+        <div class="modal-card max-w-md w-full p-6 bg-white rounded-3xl shadow-2xl relative border border-pink-100">
+            <button id="closeAdminMessageModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h4 class="font-serif font-bold text-lg text-[#2C2627] mb-1">Send Note to Client</h4>
+            <p class="text-xs text-gray-500 mb-4" id="adminMsgModalClientInfo">Client: Sarah Johnson</p>
+            
+            <form id="adminMessageForm" class="space-y-4">
+                <input type="hidden" id="adminMsgApptId">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Custom Message / Remark</label>
+                    <textarea id="adminMessageText" rows="4" required placeholder="e.g. Appointment confirmed! Please arrive 10 minutes early. Or: Slot full, would 4 PM work?" class="w-full p-3 text-xs rounded-xl border border-pink-200 outline-none focus:border-[#D86B81]"></textarea>
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold uppercase tracking-wider rounded-xl shadow-md transition-all">
+                    Send Message to Client
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+
+</body>
+
+</html>
