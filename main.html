@@ -1,0 +1,951 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Blush & Brush</title>
+
+
+    <style>
+
+        /* ==================================================
+           RESET
+        ================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: #fff8f6;
+        }
+
+
+
+        /* ==================================================
+           FIZA INTRO
+        ================================================== */
+
+        #intro {
+
+            position: fixed;
+
+            inset: 0;
+
+            width: 100%;
+
+            height: 100vh;
+
+            border: none;
+
+            display: block;
+
+            z-index: 9999;
+
+            background: white;
+        }
+
+
+
+        /* ==================================================
+           MAIN WEBSITE
+        ================================================== */
+
+        #mainWebsite {
+
+            display: none;
+
+            width: 100%;
+
+            min-height: 100vh;
+
+            margin: 0;
+
+            padding: 0;
+
+            background: #fff8f6;
+        }
+
+
+
+        /* ==================================================
+           NAVBAR
+        ================================================== */
+
+        #navbarFrame {
+
+            display: block;
+
+            width: 100%;
+
+            height: 115px;
+
+            border: none;
+
+            margin: 0;
+
+            padding: 0;
+
+            background: #fff5f6;
+
+            position: relative;
+
+            z-index: 100;
+        }
+
+
+
+        /* ==================================================
+           DYNAMIC PAGE
+        ================================================== */
+
+        #pageFrame {
+
+            display: block;
+
+            width: 100%;
+
+            min-height: 100vh;
+
+            height: 1450px;
+
+            border: none;
+
+            margin: 0;
+
+            padding: 0;
+
+            background: #fff8f6;
+
+            position: relative;
+
+            z-index: 1;
+        }
+
+
+
+        /* ==================================================
+           FOOTER
+
+           Footer is hidden by default.
+
+           It will ONLY show on:
+           1. Home
+           2. About Us
+        ================================================== */
+
+        #footerFrame {
+
+            display: none;
+
+            width: 100%;
+
+            height: 500px;
+
+            border: none;
+
+            margin: 0;
+
+            padding: 0;
+
+            background: #fff5f6;
+        }
+
+
+
+        /* ==================================================
+           MOBILE
+        ================================================== */
+
+        @media (max-width: 768px) {
+
+            #navbarFrame {
+
+                height: 115px;
+            }
+
+
+            #pageFrame {
+
+                height: 1800px;
+            }
+
+
+            #footerFrame {
+
+                height: 700px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+
+    <!-- ==================================================
+         FIZA INTRO
+    ================================================== -->
+
+    <iframe
+        id="intro"
+        src="Fiza/index.html"
+        title="Blush & Brush Intro">
+    </iframe>
+
+
+
+    <!-- ==================================================
+         MAIN WEBSITE
+    ================================================== -->
+
+    <main id="mainWebsite">
+
+
+
+        <!-- ==================================================
+             NAVBAR
+
+             Navbar stays on every page.
+        ================================================== -->
+
+        <iframe
+            id="navbarFrame"
+            src="Eiman/navbar.html"
+            title="Blush & Brush Navigation">
+        </iframe>
+
+
+
+        <!-- ==================================================
+             DYNAMIC PAGE
+
+             Home / About / Services /
+             Gallery / User Page
+        ================================================== -->
+
+        <iframe
+            id="pageFrame"
+            src="irsa/index.html"
+            title="Blush & Brush Page">
+        </iframe>
+
+
+
+        <!-- ==================================================
+             FOOTER
+
+             ONLY HOME + ABOUT
+        ================================================== -->
+
+        <iframe
+            id="footerFrame"
+            src="Eiman/contact.html"
+            title="Blush & Brush Footer">
+        </iframe>
+
+
+    </main>
+
+
+
+    <script>
+
+
+        /* ==================================================
+           ELEMENTS
+        ================================================== */
+
+        const intro =
+            document.getElementById("intro");
+
+
+        const mainWebsite =
+            document.getElementById("mainWebsite");
+
+
+        const navbarFrame =
+            document.getElementById("navbarFrame");
+
+
+        const pageFrame =
+            document.getElementById("pageFrame");
+
+
+        const footerFrame =
+            document.getElementById("footerFrame");
+
+
+
+        /* ==================================================
+           CURRENT PAGE
+        ================================================== */
+
+        let currentPage = "home";
+
+
+
+        /* ==================================================
+           FIZA INTRO → MAIN WEBSITE
+        ================================================== */
+
+        setTimeout(function () {
+
+            intro.style.display = "none";
+
+            mainWebsite.style.display = "block";
+
+            document.body.style.overflowX = "hidden";
+
+        }, 3000);
+
+
+
+        /* ==================================================
+           FOOTER CONTROL
+
+           Footer ONLY:
+           HOME
+           ABOUT
+
+           Footer hidden on:
+           SERVICES
+           GALLERY
+           USER
+           ETC.
+        ================================================== */
+
+        function updateFooter(page) {
+
+            if (
+                page === "home" ||
+                page === "about"
+            ) {
+
+                footerFrame.style.display = "block";
+
+            } else {
+
+                footerFrame.style.display = "none";
+
+            }
+
+        }
+
+
+
+        /* ==================================================
+           LOAD PAGE
+
+           Only pageFrame changes.
+
+           Navbar remains unchanged.
+        ================================================== */
+
+        function loadPage(page, pageName) {
+
+            currentPage = pageName;
+
+            /*
+               Reset iframe height before loading
+               another page so previous page height
+               doesn't affect the new page.
+            */
+
+            pageFrame.style.height = "1450px";
+
+            pageFrame.src = page;
+
+            updateFooter(pageName);
+
+            /*
+               Always bring the parent page back
+               to the top.
+            */
+
+            window.scrollTo({
+                top: 0,
+                behavior: "instant"
+            });
+
+        }
+
+
+
+        /* ==================================================
+           PAGE FRAME LOAD
+
+           IMPORTANT:
+           No hero image scaling.
+           No hero repositioning.
+           No artificial image movement.
+
+           The original landing page design
+           will remain as it is.
+        ================================================== */
+
+        pageFrame.addEventListener(
+            "load",
+            function () {
+
+                try {
+
+                    const pageDocument =
+                        pageFrame.contentDocument ||
+                        pageFrame.contentWindow.document;
+
+
+
+                    /* ======================================
+                       REMOVE ONLY DEFAULT BODY GAP
+                    ====================================== */
+
+                    if (pageDocument.body) {
+
+                        pageDocument.body.style.margin = "0";
+
+                        pageDocument.body.style.padding = "0";
+
+                    }
+
+
+                    if (pageDocument.documentElement) {
+
+                        pageDocument.documentElement.style.margin = "0";
+
+                        pageDocument.documentElement.style.padding = "0";
+
+                    }
+
+
+
+                    /* ======================================
+                       AUTOMATIC HEIGHT
+
+                       Get the actual content height
+                       without changing its design.
+                    ====================================== */
+
+                    setTimeout(function () {
+
+                        try {
+
+                            const contentHeight =
+                                Math.max(
+
+                                    pageDocument.body
+                                        ? pageDocument.body.scrollHeight
+                                        : 0,
+
+                                    pageDocument.documentElement
+                                        ? pageDocument.documentElement.scrollHeight
+                                        : 0
+
+                                );
+
+
+                            if (contentHeight > 0) {
+
+                                pageFrame.style.height =
+                                    contentHeight + "px";
+
+                            }
+
+                        } catch (heightError) {
+
+                            console.log(
+                                "Page height error:",
+                                heightError
+                            );
+
+                        }
+
+                    }, 100);
+
+
+                } catch (error) {
+
+                    console.log(
+                        "Page adjustment error:",
+                        error
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* ==================================================
+           FOOTER LOAD
+        ================================================== */
+
+        footerFrame.addEventListener(
+            "load",
+            function () {
+
+                try {
+
+                    const footerDocument =
+                        footerFrame.contentDocument ||
+                        footerFrame.contentWindow.document;
+
+
+
+                    if (footerDocument.body) {
+
+                        footerDocument.body.style.margin =
+                            "0";
+
+                        footerDocument.body.style.padding =
+                            "0";
+
+                        footerDocument.body.style.backgroundColor =
+                            "#fff5f6";
+                    }
+
+
+                    if (footerDocument.documentElement) {
+
+                        footerDocument.documentElement.style.margin =
+                            "0";
+
+                        footerDocument.documentElement.style.padding =
+                            "0";
+                    }
+
+
+
+                    /* ======================================
+                       AUTOMATIC FOOTER HEIGHT
+                    ====================================== */
+
+                    setTimeout(function () {
+
+                        try {
+
+                            const footerHeight =
+                                Math.max(
+
+                                    footerDocument.body
+                                        ? footerDocument.body.scrollHeight
+                                        : 0,
+
+                                    footerDocument.documentElement
+                                        ? footerDocument.documentElement.scrollHeight
+                                        : 0
+
+                                );
+
+
+                            if (footerHeight > 0) {
+
+                                footerFrame.style.height =
+                                    footerHeight + "px";
+
+                            }
+
+                        } catch (footerHeightError) {
+
+                            console.log(
+                                "Footer height error:",
+                                footerHeightError
+                            );
+
+                        }
+
+                    }, 100);
+
+
+                } catch (error) {
+
+                    console.log(
+                        "Footer adjustment error:",
+                        error
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* ==================================================
+           NAVBAR LOAD
+        ================================================== */
+
+        navbarFrame.addEventListener(
+            "load",
+            function () {
+
+                try {
+
+                    const navbarDocument =
+                        navbarFrame.contentDocument ||
+                        navbarFrame.contentWindow.document;
+
+
+
+                    /* ======================================
+                       REMOVE NAVBAR BODY SPACING
+                    ====================================== */
+
+                    if (navbarDocument.body) {
+
+                        navbarDocument.body.style.margin =
+                            "0";
+
+                        navbarDocument.body.style.padding =
+                            "0";
+                    }
+
+
+                    if (navbarDocument.documentElement) {
+
+                        navbarDocument.documentElement.style.margin =
+                            "0";
+
+                        navbarDocument.documentElement.style.padding =
+                            "0";
+                    }
+
+
+
+                    /* ==================================================
+                       HOME
+
+                       Home → IRSA LANDING PAGE
+                       Footer → SHOW
+                    ================================================== */
+
+                    const homeLinks =
+                        navbarDocument.querySelectorAll(
+                            'a[href="index.html"]'
+                        );
+
+
+                    homeLinks.forEach(function (link) {
+
+                        link.onclick =
+                            function (event) {
+
+                                event.preventDefault();
+
+                                event.stopPropagation();
+
+                                loadPage(
+                                    "irsa/index.html",
+                                    "home"
+                                );
+
+                                return false;
+
+                            };
+
+                    });
+
+
+
+                    /* ==================================================
+                       ABOUT US
+
+                       About → EIMAN ABOUT PAGE
+                       Footer → SHOW
+                    ================================================== */
+
+                    const aboutLinks =
+                        navbarDocument.querySelectorAll(
+                            'a[href="about.html"]'
+                        );
+
+
+                    aboutLinks.forEach(function (link) {
+
+                        link.onclick =
+                            function (event) {
+
+                                event.preventDefault();
+
+                                event.stopPropagation();
+
+                                loadPage(
+                                    "Eiman/about.html",
+                                    "about"
+                                );
+
+                                return false;
+
+                            };
+
+                    });
+
+
+
+                    /* ==================================================
+                       SERVICES
+
+                       Services → EIMAN OFFER PAGE
+                       Footer → HIDDEN
+                    ================================================== */
+
+                    const servicesLinks =
+                        navbarDocument.querySelectorAll(
+                            'a[href="#services"]'
+                        );
+
+
+                    servicesLinks.forEach(function (link) {
+
+                        link.onclick =
+                            function (event) {
+
+                                event.preventDefault();
+
+                                event.stopPropagation();
+
+                                loadPage(
+                                    "Eiman/offer.html",
+                                    "services"
+                                );
+
+                                return false;
+
+                            };
+
+                    });
+
+
+
+                    /* ==================================================
+                       GALLERY
+
+                       Gallery → IRSA LANDING PAGE
+                       → Gallery Section
+
+                       Footer → HIDDEN
+                    ================================================== */
+
+                    const galleryLinks =
+                        navbarDocument.querySelectorAll(
+                            'a[href="#gallery"]'
+                        );
+
+
+                    galleryLinks.forEach(function (link) {
+
+                        link.onclick =
+                            function (event) {
+
+                                event.preventDefault();
+
+                                event.stopPropagation();
+
+
+                                currentPage = "gallery";
+
+                                updateFooter("gallery");
+
+
+                                pageFrame.style.height =
+                                    "1450px";
+
+
+                                pageFrame.src =
+                                    "irsa/index.html";
+
+
+                                const scrollToGallery =
+                                    function () {
+
+                                        try {
+
+                                            const landingDocument =
+                                                pageFrame.contentDocument ||
+                                                pageFrame.contentWindow.document;
+
+
+                                            const gallerySection =
+                                                landingDocument.getElementById(
+                                                    "gallery"
+                                                );
+
+
+                                            if (gallerySection) {
+
+                                                gallerySection.scrollIntoView({
+                                                    behavior: "smooth",
+                                                    block: "start"
+                                                });
+
+                                            }
+
+                                        } catch (galleryError) {
+
+                                            console.log(
+                                                "Gallery error:",
+                                                galleryError
+                                            );
+
+                                        }
+
+
+                                        pageFrame.removeEventListener(
+                                            "load",
+                                            scrollToGallery
+                                        );
+
+                                    };
+
+
+                                pageFrame.addEventListener(
+                                    "load",
+                                    scrollToGallery
+                                );
+
+
+                                return false;
+
+                            };
+
+                    });
+
+
+
+                    /* ==================================================
+                       CONTACT
+
+                       Contact intentionally does NOTHING.
+                    ================================================== */
+
+                    const contactLinks =
+                        navbarDocument.querySelectorAll(
+                            'a[href="contact.html"]'
+                        );
+
+
+                    contactLinks.forEach(function (link) {
+
+                        const linkText =
+                            link.textContent
+                                .trim()
+                                .toLowerCase();
+
+
+                        if (
+                            !linkText.includes(
+                                "book appointment"
+                            )
+                        ) {
+
+                            link.onclick =
+                                function (event) {
+
+                                    event.preventDefault();
+
+                                    event.stopPropagation();
+
+                                    return false;
+
+                                };
+
+                        }
+
+                    });
+
+
+
+                    /* ==================================================
+                       BOOK APPOINTMENT
+
+                       → IRSA USER PAGE
+                       Footer → HIDDEN
+                    ================================================== */
+
+                    const appointmentLinks =
+                        navbarDocument.querySelectorAll(
+                            'a[href="contact.html"]'
+                        );
+
+
+                    appointmentLinks.forEach(function (link) {
+
+                        const buttonText =
+                            link.textContent
+                                .trim()
+                                .toLowerCase();
+
+
+                        if (
+                            buttonText.includes(
+                                "book appointment"
+                            )
+                        ) {
+
+                            link.onclick =
+                                function (event) {
+
+                                    event.preventDefault();
+
+                                    event.stopPropagation();
+
+                                    loadPage(
+                                        "irsa/user.html",
+                                        "user"
+                                    );
+
+                                    return false;
+
+                                };
+
+                        }
+
+                    });
+
+
+                } catch (error) {
+
+                    console.log(
+                        "Navbar control error:",
+                        error
+                    );
+
+                }
+
+            }
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>
+```
