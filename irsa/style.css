@@ -18,10 +18,6 @@ a {
 
 /* ===== HERO SECTION ===== */
 
-.navbar-space {
-    height: 150px;
-    width: 100%;
-}
 .hero {
   position: relative;
   display: flex;
