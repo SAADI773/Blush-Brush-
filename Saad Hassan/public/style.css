@@ -1,0 +1,217 @@
+/* ==========================================
+   BLUSH & BRUSH - UNIFIED STYLESHEET
+   ========================================== */
+
+/* Reset & Base */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #2C2627;
+    background-color: #FFF5F6;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   1. STARTUP LOADER ANIMATION
+   ========================================== */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4e9 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-content {
+    text-align: center;
+    animation: bloom 1.5s ease-out;
+}
+
+.loader-icon {
+    font-size: 3.5rem;
+    color: #D86B81;
+    margin-bottom: 12px;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.logo-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #d63384, #D86B81);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+}
+
+.loader-bar {
+    width: 260px;
+    height: 4px;
+    background: #f8d7da;
+    margin: 0 auto 16px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.loader-bar::after {
+    content: '';
+    display: block;
+    width: 45%;
+    height: 100%;
+    background: #D86B81;
+    border-radius: 10px;
+    animation: loading 1.4s infinite ease-in-out;
+}
+
+.loader-content p {
+    font-size: 0.8rem;
+    color: #8a7273;
+    letter-spacing: 3.5px;
+    font-weight: 600;
+}
+
+@keyframes bloom {
+    0% {
+        transform: scale(0.85);
+        opacity: 0;
+        filter: blur(8px);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes loading {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(200%);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* ==========================================
+   2. MODAL OVERLAYS & ANIMATIONS
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(44, 38, 39, 0.6);
+    backdrop-filter: blur(6px);
+    z-index: 990;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-card {
+    animation: modalPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPop {
+    0% {
+        transform: scale(0.92) translateY(12px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ==========================================
+   3. STATUS BADGES
+   ========================================== */
+.badge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge-pending {
+    background-color: #FEF3C7;
+    color: #92400E;
+    border: 1px solid #FDE68A;
+}
+
+.badge-upcoming, .badge-accepted {
+    background-color: #DBEAFE;
+    color: #1E40AF;
+    border: 1px solid #BFDBFE;
+}
+
+.badge-completed {
+    background-color: #D1FAE5;
+    color: #065F46;
+    border: 1px solid #A7F3D0;
+}
+
+.badge-cancelled, .badge-rejected {
+    background-color: #FEE2E2;
+    color: #991B1B;
+    border: 1px solid #FCA5A5;
+}
+
+/* Custom Scrollbar for Modal Windows */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #FFF5F6;
+}
+::-webkit-scrollbar-thumb {
+    background: #E5C3C9;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #D86B81;
+}
