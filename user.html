@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blush & Brush | My Account</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- User CSS -->
+    <link rel="stylesheet" href="user.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         USER DASHBOARD
+         ========================================= -->
+    <main class="user-page">
+
+        <section class="dashboard-content">
+
+            <!-- =================================
+                 TOP HEADER
+                 ================================= -->
+            <header class="dashboard-header">
+
+                <div class="welcome-section">
+                    <p class="welcome-small">BLUSH & BRUSH BEAUTY SALON</p>
+                    <h1>Hello, Guest <span>👋</span></h1>
+                    <p class="welcome-text">
+                        Welcome back! Here's a look at your beauty journey with us.
+                    </p>
+                </div>
+
+                <div class="header-actions">
+
+                    <div class="date-card">
+                        <i class="fa-regular fa-calendar"></i>
+                        <div>
+                            <span id="currentDate">May 25, 2025</span>
+                            <small id="currentDay">Sunday</small>
+                        </div>
+                    </div>
+
+                    <button class="add-appointment-btn" id="openAppointmentBtn" type="button">
+                        <i class="fa-solid fa-plus"></i>
+                        Book Appointment
+                    </button>
+
+                </div>
+
+            </header>
+
+            <!-- =================================
+                 SUMMARY CARDS
+                 ================================= -->
+            <section class="summary-cards">
+
+                <div class="summary-card">
+                    <div class="summary-icon pink-icon">
+                        <i class="fa-regular fa-calendar-days"></i>
+                    </div>
+                    <div class="summary-number">6</div>
+                    <h3>Total Appointments</h3>
+                    <p>All time bookings</p>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon purple-icon">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+                    <div class="summary-number">2</div>
+                    <h3>Upcoming Appointments</h3>
+                    <p>Scheduled ahead</p>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon green-icon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <div class="summary-number">3</div>
+                    <h3>Completed Appointments</h3>
+                    <p>Visits so far</p>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon red-icon">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                    <div class="summary-number">1</div>
+                    <h3>Cancelled Appointments</h3>
+                    <p>Not completed</p>
+                </div>
+
+            </section>
+
+            <!-- =================================
+                 MY APPOINTMENTS
+                 ================================= -->
+            <section class="appointments-section">
+
+                <div class="appointments-header">
+                    <div class="appointments-title">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        <h2>My Appointments</h2>
+                    </div>
+                    <span class="appointment-count">6 Appointments</span>
+                </div>
+
+                <div class="table-container">
+                    <table class="appointments-table">
+
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Service</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="appointmentsTableBody">
+
+                            <tr>
+                                <td class="appointment-time">May 20, 2025</td>
+                                <td>09:00 AM</td>
+                                <td>Haircut & Styling</td>
+                                <td><span class="status completed">Completed</span></td>
+                                <td>Loved the result</td>
+                            </tr>
+
+                            <tr>
+                                <td class="appointment-time">May 28, 2025</td>
+                                <td>12:00 PM</td>
+                                <td>Hair Coloring</td>
+                                <td><span class="status upcoming">Upcoming</span></td>
+                                <td>First time trying balayage</td>
+                            </tr>
+
+                            <tr>
+                                <td class="appointment-time">Jun 02, 2025</td>
+                                <td>03:00 PM</td>
+                                <td>Spa & Massage</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td>Waiting for confirmation</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </section>
+
+        </section>
+
+        <!-- =========================================
+             BOOK APPOINTMENT MODAL
+             ========================================= -->
+        <div class="appointment-overlay" id="appointmentOverlay">
+
+            <div class="appointment-modal" id="appointmentModal">
+
+                <div class="modal-header">
+                    <div>
+                        <p class="modal-label">BLUSH & BRUSH</p>
+                        <h2>Book Appointment</h2>
+                        <p>Request a new appointment with us.</p>
+                    </div>
+
+                    <button type="button" class="close-modal" id="closeAppointmentBtn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <form id="appointmentForm" class="appointment-form">
+
+                    <div class="form-field">
+                        <label for="clientPhone">Phone Number</label>
+                        <div class="modal-input">
+                            <i class="fa-solid fa-phone"></i>
+                            <input type="tel" id="clientPhone" name="clientPhone" placeholder="Enter phone number" required>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="service">Service</label>
+                        <div class="modal-input">
+                            <i class="fa-solid fa-sparkles"></i>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service</option>
+                                <option value="Haircut & Styling">Haircut & Styling</option>
+                                <option value="Hair Coloring">Hair Coloring</option>
+                                <option value="Facial Treatment">Facial Treatment</option>
+                                <option value="Manicure & Pedicure">Manicure & Pedicure</option>
+                                <option value="Spa & Massage">Spa & Massage</option>
+                                <option value="Makeup Session">Makeup Session</option>
+                                <option value="Hair Treatment">Hair Treatment</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-field">
+                            <label for="appointmentDate">Date</label>
+                            <div class="modal-input">
+                                <i class="fa-regular fa-calendar"></i>
+                                <input type="date" id="appointmentDate" name="appointmentDate" required>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="appointmentTime">Time</label>
+                            <div class="modal-input">
+                                <i class="fa-regular fa-clock"></i>
+                                <input type="time" id="appointmentTime" name="appointmentTime" required>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-field">
+                        <label for="remarks">Remarks</label>
+                        <textarea id="remarks" name="remarks" rows="3" placeholder="Any special request..."></textarea>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="cancel-btn" id="cancelAppointmentBtn">Cancel</button>
+                        <button type="submit" class="save-appointment-btn">
+                            <i class="fa-solid fa-check"></i>
+                            Book Appointment
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="user.js"></script>
+
+</body>
+
+</html>
