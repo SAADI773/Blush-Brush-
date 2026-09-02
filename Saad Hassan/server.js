@@ -16,9 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serve static frontend files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
-// Also serve assets/images from Eiman/ and irsa/ if needed
-app.use('/Eiman', express.static(path.join(__dirname, 'Eiman')));
-app.use('/irsa', express.static(path.join(__dirname, 'irsa')));
+app.use('/Eiman', express.static(path.join(__dirname, '..', 'Eiman')));
+app.use('/irsa', express.static(path.join(__dirname, '..', 'irsa')));
 
 // Auth Middleware
 function authenticateToken(req, res, next) {
@@ -38,27 +37,35 @@ function authenticateToken(req, res, next) {
   });
 }
 
-// Require Admin Middleware
+// Require Admin Middleware (admin or superadmin)
 function requireAdmin(req, res, next) {
-  if (!req.user || req.user.role !== 'admin') {
-    return res.status(403).json({ error: 'Admin privilege required.' });
+  if (!req.user || (req.user.role !== 'admin' && req.user.role !== 'superadmin')) {
+    return res.status(403).json({ error: 'Admin or Super Admin privilege required.' });
+  }
+  next();
+}
+
+// Require Super Admin Middleware
+function requireSuperAdmin(req, res, next) {
+  if (!req.user || req.user.role !== 'superadmin') {
+    return res.status(403).json({ error: 'Super Admin privilege required.' });
   }
   next();
 }
 
 // ==========================================
-// AUTH ROUTES
+// 1. AUTH & PROFILE ROUTES
 // ==========================================
 
-// 1. SIGNUP
+// SIGNUP
 app.post('/api/auth/signup', (req, res) => {
   const { name, email, phone, password, role } = req.body;
 
   if (!name || !email || !phone || !password) {
-    return res.status(400).json({ error: 'Please provide all required fields (name, email, phone, password).' });
+    return res.status(400).json({ error: 'Please fill in all required registration fields.' });
   }
 
-  const userRole = role === 'admin' ? 'admin' : 'user';
+  const userRole = (role === 'admin' || role === 'superadmin') ? role : 'user';
   const hashedPassword = bcrypt.hashSync(password, 10);
 
   const query = `INSERT INTO users (name, email, phone, password, role) VALUES (?, ?, ?, ?, ?)`;
@@ -82,7 +89,7 @@ app.post('/api/auth/signup', (req, res) => {
   });
 });
 
-// 2. LOGIN
+// LOGIN
 app.post('/api/auth/login', (req, res) => {
   const { email, password } = req.body;
 
@@ -92,11 +99,7 @@ app.post('/api/auth/login', (req, res) => {
 
   const query = `SELECT * FROM users WHERE email = ?`;
   db.get(query, [email.trim().toLowerCase()], (err, user) => {
-    if (err) {
-      return res.status(500).json({ error: 'Database error during login.' });
-    }
-
-    if (!user) {
+    if (err || !user) {
       return res.status(401).json({ error: 'Invalid email or password.' });
     }
 
@@ -116,18 +119,67 @@ app.post('/api/auth/login', (req, res) => {
   });
 });
 
-// 3. GET CURRENT USER (ME)
+// GET ME
 app.get('/api/auth/me', authenticateToken, (req, res) => {
-  res.json({ user: req.user });
+  db.get(`SELECT id, name, email, phone, role, created_at FROM users WHERE id = ?`, [req.user.id], (err, user) => {
+    if (err || !user) return res.status(404).json({ error: 'User not found.' });
+    res.json({ user });
+  });
 });
 
+// UPDATE PROFILE (Name, Phone)
+app.patch('/api/users/profile', authenticateToken, (req, res) => {
+  const { name, phone } = req.body;
+  if (!name || !phone) {
+    return res.status(400).json({ error: 'Name and phone number are required.' });
+  }
+
+  db.run(`UPDATE users SET name = ?, phone = ? WHERE id = ?`, [name.trim(), phone.trim(), req.user.id], function (err) {
+    if (err) return res.status(500).json({ error: 'Failed to update profile.' });
+    
+    db.get(`SELECT id, name, email, phone, role FROM users WHERE id = ?`, [req.user.id], (err, updatedUser) => {
+      const token = jwt.sign(updatedUser, JWT_SECRET, { expiresIn: '7d' });
+      res.json({ message: 'Profile updated successfully!', user: updatedUser, token });
+    });
+  });
+});
+
+// UPDATE PASSWORD
+app.patch('/api/users/password', authenticateToken, (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ error: 'Current password and new password are required.' });
+  }
+
+  if (newPassword.length < 6) {
+    return res.status(400).json({ error: 'New password must be at least 6 characters long.' });
+  }
+
+  db.get(`SELECT password FROM users WHERE id = ?`, [req.user.id], (err, user) => {
+    if (err || !user) return res.status(404).json({ error: 'User not found.' });
+
+    const isMatch = bcrypt.compareSync(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Incorrect current password.' });
+    }
+
+    const hashedNewPassword = bcrypt.hashSync(newPassword, 10);
+    db.run(`UPDATE users SET password = ? WHERE id = ?`, [hashedNewPassword, req.user.id], function (err) {
+      if (err) return res.status(500).json({ error: 'Failed to update password.' });
+      res.json({ message: 'Password updated successfully!' });
+    });
+  });
+});
+
+
 // ==========================================
-// APPOINTMENT ROUTES
+// 2. APPOINTMENT ROUTES
 // ==========================================
 
-// 1. GET APPOINTMENTS (Admin gets all, User gets theirs)
+// GET APPOINTMENTS
 app.get('/api/appointments', authenticateToken, (req, res) => {
-  if (req.user.role === 'admin') {
+  if (req.user.role === 'admin' || req.user.role === 'superadmin') {
     const query = `
       SELECT a.*, u.email as user_email 
       FROM appointments a 
@@ -147,15 +199,15 @@ app.get('/api/appointments', authenticateToken, (req, res) => {
   }
 });
 
-// 2. CREATE APPOINTMENT (User or Admin)
+// CREATE APPOINTMENT
 app.post('/api/appointments', authenticateToken, (req, res) => {
   const { client_name, client_phone, service, appointment_date, appointment_time, remarks, status } = req.body;
 
   if (!client_name || !client_phone || !service || !appointment_date || !appointment_time) {
-    return res.status(400).json({ error: 'Please provide all required appointment fields.' });
+    return res.status(400).json({ error: 'Please fill in all required appointment fields.' });
   }
 
-  const initialStatus = req.user.role === 'admin' && status ? status : 'Pending';
+  const initialStatus = (req.user.role === 'admin' || req.user.role === 'superadmin') && status ? status : 'Pending';
   const query = `
     INSERT INTO appointments (user_id, client_name, client_phone, service, appointment_date, appointment_time, status, remarks, admin_message)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -163,33 +215,18 @@ app.post('/api/appointments', authenticateToken, (req, res) => {
 
   db.run(
     query,
-    [
-      req.user.id,
-      client_name.trim(),
-      client_phone.trim(),
-      service.trim(),
-      appointment_date,
-      appointment_time,
-      initialStatus,
-      remarks ? remarks.trim() : '',
-      ''
-    ],
+    [req.user.id, client_name.trim(), client_phone.trim(), service.trim(), appointment_date, appointment_time, initialStatus, remarks ? remarks.trim() : '', ''],
     function (err) {
-      if (err) {
-        return res.status(500).json({ error: 'Failed to create appointment.' });
-      }
+      if (err) return res.status(500).json({ error: 'Failed to create appointment.' });
 
       db.get(`SELECT * FROM appointments WHERE id = ?`, [this.lastID], (err, newAppointment) => {
-        res.status(201).json({
-          message: 'Appointment booked successfully!',
-          appointment: newAppointment
-        });
+        res.status(201).json({ message: 'Appointment booked successfully!', appointment: newAppointment });
       });
     }
   );
 });
 
-// 3. UPDATE APPOINTMENT STATUS (Admin only)
+// UPDATE STATUS (Admin/Superadmin)
 app.patch('/api/appointments/:id/status', authenticateToken, requireAdmin, (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
@@ -199,63 +236,229 @@ app.patch('/api/appointments/:id/status', authenticateToken, requireAdmin, (req,
     return res.status(400).json({ error: 'Invalid status provided.' });
   }
 
-  // Normalize status naming: "Accepted" -> "Upcoming", "Rejected" -> "Cancelled"
   let dbStatus = status;
   if (status === 'Accepted') dbStatus = 'Upcoming';
   if (status === 'Rejected') dbStatus = 'Cancelled';
 
-  const query = `UPDATE appointments SET status = ? WHERE id = ?`;
-  db.run(query, [dbStatus, id], function (err) {
-    if (err) return res.status(500).json({ error: 'Failed to update appointment status.' });
-    if (this.changes === 0) return res.status(404).json({ error: 'Appointment not found.' });
-
+  db.run(`UPDATE appointments SET status = ? WHERE id = ?`, [dbStatus, id], function (err) {
+    if (err) return res.status(500).json({ error: 'Failed to update status.' });
     db.get(`SELECT * FROM appointments WHERE id = ?`, [id], (err, updated) => {
       res.json({ message: `Status updated to ${dbStatus}`, appointment: updated });
     });
   });
 });
 
-// 4. SEND CUSTOM ADMIN MESSAGE / NOTE TO CLIENT (Admin only)
+// UPDATE ADMIN MESSAGE (Admin/Superadmin)
 app.patch('/api/appointments/:id/message', authenticateToken, requireAdmin, (req, res) => {
   const { id } = req.params;
   const { admin_message } = req.body;
 
-  const query = `UPDATE appointments SET admin_message = ? WHERE id = ?`;
-  db.run(query, [admin_message ? admin_message.trim() : '', id], function (err) {
-    if (err) return res.status(500).json({ error: 'Failed to update admin message.' });
-    if (this.changes === 0) return res.status(404).json({ error: 'Appointment not found.' });
-
+  db.run(`UPDATE appointments SET admin_message = ? WHERE id = ?`, [admin_message ? admin_message.trim() : '', id], function (err) {
+    if (err) return res.status(500).json({ error: 'Failed to update message.' });
     db.get(`SELECT * FROM appointments WHERE id = ?`, [id], (err, updated) => {
-      res.json({ message: 'Custom message sent to client successfully!', appointment: updated });
+      res.json({ message: 'Note sent to client successfully!', appointment: updated });
     });
   });
 });
 
-// 5. DELETE APPOINTMENT (Admin or Owner)
+// DELETE APPOINTMENT
 app.delete('/api/appointments/:id', authenticateToken, (req, res) => {
   const { id } = req.params;
-
   db.get(`SELECT * FROM appointments WHERE id = ?`, [id], (err, appt) => {
-    if (err) return res.status(500).json({ error: 'Database error.' });
-    if (!appt) return res.status(404).json({ error: 'Appointment not found.' });
+    if (err || !appt) return res.status(404).json({ error: 'Appointment not found.' });
 
-    if (req.user.role !== 'admin' && appt.user_id !== req.user.id) {
+    if (req.user.role !== 'admin' && req.user.role !== 'superadmin' && appt.user_id !== req.user.id) {
       return res.status(403).json({ error: 'Unauthorized to delete this appointment.' });
     }
 
     db.run(`DELETE FROM appointments WHERE id = ?`, [id], function (err) {
       if (err) return res.status(500).json({ error: 'Failed to delete appointment.' });
-      res.json({ message: 'Appointment cancelled/deleted successfully.' });
+      res.json({ message: 'Appointment deleted successfully.' });
     });
   });
 });
 
-// Fallback to index.html for SPA routing
+
+// ==========================================
+// 3. SALON SERVICES ROUTES
+// ==========================================
+
+app.get('/api/services', (req, res) => {
+  db.all(`SELECT * FROM services ORDER BY category, name`, [], (err, rows) => {
+    if (err) return res.status(500).json({ error: 'Failed to fetch services.' });
+    res.json({ services: rows });
+  });
+});
+
+app.post('/api/services', authenticateToken, requireAdmin, (req, res) => {
+  const { name, category, price, duration, description } = req.body;
+  if (!name || !category || !price || !duration) {
+    return res.status(400).json({ error: 'Service name, category, price, and duration are required.' });
+  }
+
+  db.run(
+    `INSERT INTO services (name, category, price, duration, description) VALUES (?, ?, ?, ?, ?)`,
+    [name.trim(), category.trim(), parseFloat(price), duration.trim(), description ? description.trim() : ''],
+    function (err) {
+      if (err) return res.status(500).json({ error: 'Failed to add service.' });
+      db.get(`SELECT * FROM services WHERE id = ?`, [this.lastID], (err, newService) => {
+        res.status(201).json({ message: 'Service added successfully!', service: newService });
+      });
+    }
+  );
+});
+
+app.delete('/api/services/:id', authenticateToken, requireAdmin, (req, res) => {
+  db.run(`DELETE FROM services WHERE id = ?`, [req.params.id], function (err) {
+    if (err) return res.status(500).json({ error: 'Failed to delete service.' });
+    res.json({ message: 'Service deleted successfully.' });
+  });
+});
+
+
+// ==========================================
+// 4. ANNOUNCEMENTS ROUTES
+// ==========================================
+
+app.get('/api/announcements', (req, res) => {
+  db.all(`SELECT * FROM announcements ORDER BY id DESC`, [], (err, rows) => {
+    if (err) return res.status(500).json({ error: 'Failed to fetch announcements.' });
+    res.json({ announcements: rows });
+  });
+});
+
+app.post('/api/announcements', authenticateToken, requireAdmin, (req, res) => {
+  const { title, content } = req.body;
+  if (!title || !content) {
+    return res.status(400).json({ error: 'Title and content are required for announcement.' });
+  }
+
+  const dateToday = new Date().toISOString().split('T')[0];
+  db.run(
+    `INSERT INTO announcements (title, content, date) VALUES (?, ?, ?)`,
+    [title.trim(), content.trim(), dateToday],
+    function (err) {
+      if (err) return res.status(500).json({ error: 'Failed to publish announcement.' });
+      db.get(`SELECT * FROM announcements WHERE id = ?`, [this.lastID], (err, item) => {
+        res.status(201).json({ message: 'Announcement published successfully!', announcement: item });
+      });
+    }
+  );
+});
+
+app.delete('/api/announcements/:id', authenticateToken, requireAdmin, (req, res) => {
+  db.run(`DELETE FROM announcements WHERE id = ?`, [req.params.id], function (err) {
+    if (err) return res.status(500).json({ error: 'Failed to delete announcement.' });
+    res.json({ message: 'Announcement deleted.' });
+  });
+});
+
+
+// ==========================================
+// 5. SUPER ADMIN SUITE ROUTES
+// ==========================================
+
+// USER MANAGEMENT (List all users)
+app.get('/api/superadmin/users', authenticateToken, requireSuperAdmin, (req, res) => {
+  db.all(`SELECT id, name, email, phone, role, created_at FROM users ORDER BY id DESC`, [], (err, users) => {
+    if (err) return res.status(500).json({ error: 'Failed to fetch users.' });
+    res.json({ users });
+  });
+});
+
+// CHANGE USER ROLE
+app.patch('/api/superadmin/users/:id/role', authenticateToken, requireSuperAdmin, (req, res) => {
+  const { role } = req.body;
+  const validRoles = ['user', 'admin', 'superadmin'];
+  if (!role || !validRoles.includes(role)) {
+    return res.status(400).json({ error: 'Invalid role specified.' });
+  }
+
+  db.run(`UPDATE users SET role = ? WHERE id = ?`, [role, req.params.id], function (err) {
+    if (err) return res.status(500).json({ error: 'Failed to update user role.' });
+    res.json({ message: `User role updated to ${role}.` });
+  });
+});
+
+// FORCE RESET PASSWORD (Superadmin)
+app.patch('/api/superadmin/users/:id/reset-password', authenticateToken, requireSuperAdmin, (req, res) => {
+  const { newPassword } = req.body;
+  if (!newPassword || newPassword.length < 6) {
+    return res.status(400).json({ error: 'New password must be at least 6 characters.' });
+  }
+
+  const hashedPassword = bcrypt.hashSync(newPassword, 10);
+  db.run(`UPDATE users SET password = ? WHERE id = ?`, [hashedPassword, req.params.id], function (err) {
+    if (err) return res.status(500).json({ error: 'Failed to reset password.' });
+    res.json({ message: 'User password reset successfully!' });
+  });
+});
+
+// DELETE USER ACCOUNT (Superadmin)
+app.delete('/api/superadmin/users/:id', authenticateToken, requireSuperAdmin, (req, res) => {
+  if (parseInt(req.params.id) === req.user.id) {
+    return res.status(400).json({ error: 'Superadmin cannot delete their own account.' });
+  }
+
+  db.run(`DELETE FROM users WHERE id = ?`, [req.params.id], function (err) {
+    if (err) return res.status(500).json({ error: 'Failed to delete user.' });
+    res.json({ message: 'User account deleted successfully.' });
+  });
+});
+
+// PRODUCT MANAGEMENT (Get, Add, Edit, Delete)
+app.get('/api/products', (req, res) => {
+  db.all(`SELECT * FROM products ORDER BY id DESC`, [], (err, products) => {
+    if (err) return res.status(500).json({ error: 'Failed to fetch products.' });
+    res.json({ products });
+  });
+});
+
+app.post('/api/products', authenticateToken, requireSuperAdmin, (req, res) => {
+  const { name, category, price, stock, description } = req.body;
+  if (!name || !category || price === undefined || stock === undefined) {
+    return res.status(400).json({ error: 'Product name, category, price, and stock are required.' });
+  }
+
+  db.run(
+    `INSERT INTO products (name, category, price, stock, description) VALUES (?, ?, ?, ?, ?)`,
+    [name.trim(), category.trim(), parseFloat(price), parseInt(stock), description ? description.trim() : ''],
+    function (err) {
+      if (err) return res.status(500).json({ error: 'Failed to create product.' });
+      db.get(`SELECT * FROM products WHERE id = ?`, [this.lastID], (err, product) => {
+        res.status(201).json({ message: 'Product added to inventory!', product });
+      });
+    }
+  );
+});
+
+app.put('/api/products/:id', authenticateToken, requireSuperAdmin, (req, res) => {
+  const { name, category, price, stock, description } = req.body;
+
+  db.run(
+    `UPDATE products SET name = ?, category = ?, price = ?, stock = ?, description = ? WHERE id = ?`,
+    [name.trim(), category.trim(), parseFloat(price), parseInt(stock), description ? description.trim() : '', req.params.id],
+    function (err) {
+      if (err) return res.status(500).json({ error: 'Failed to update product.' });
+      res.json({ message: 'Product updated successfully!' });
+    }
+  );
+});
+
+app.delete('/api/products/:id', authenticateToken, requireSuperAdmin, (req, res) => {
+  db.run(`DELETE FROM products WHERE id = ?`, [req.params.id], function (err) {
+    if (err) return res.status(500).json({ error: 'Failed to delete product.' });
+    res.json({ message: 'Product removed from inventory.' });
+  });
+});
+
+
+// Fallback route
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Start Server
 app.listen(PORT, () => {
-  console.log(`Blush & Brush Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Blush & Brush Server running at http://localhost:${PORT}`);
 });
