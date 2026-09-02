@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Blush & Brush | Admin Dashboard</title>
+
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- Admin CSS -->
+
+    <link rel="stylesheet" href="admin.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         ADMIN DASHBOARD
+         ========================================= -->
+
+    <main class="admin-page">
+
+
+        <!-- =====================================
+             BACKGROUND DECORATION
+             ===================================== -->
+
+        <div class="background-decoration">
+
+            <span class="flower flower-one"></span>
+
+            <span class="flower flower-two"></span>
+
+            <span class="flower flower-three"></span>
+
+            <span class="flower flower-four"></span>
+
+            <span class="petal petal-one"></span>
+
+            <span class="petal petal-two"></span>
+
+            <span class="petal petal-three"></span>
+
+            <span class="petal petal-four"></span>
+
+        </div>
+
+
+
+        <!-- =====================================
+             MAIN CONTENT
+             ===================================== -->
+
+        <section class="dashboard-content">
+
+
+            <!-- =================================
+                 TOP HEADER
+                 ================================= -->
+
+            <header class="dashboard-header">
+
+
+                <!-- Welcome -->
+
+                <div class="welcome-section">
+
+                    <p class="welcome-small">
+                        BLUSH & BRUSH BEAUTY SALON
+                    </p>
+
+                    <h1>
+                        Hello Admin
+                        <span>👋</span>
+                    </h1>
+
+                    <p class="welcome-text">
+                        Welcome back! Here's what's happening
+                        with your salon today.
+                    </p>
+
+                </div>
+
+
+
+                <!-- Header Right -->
+
+                <div class="header-actions">
+
+
+                    <!-- Date -->
+
+                    <div class="date-card">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        <div>
+
+                            <span id="currentDate">
+                                May 25, 2025
+                            </span>
+
+                            <small id="currentDay">
+                                Sunday
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Add Appointment -->
+
+                    <button
+                        class="add-appointment-btn"
+                        id="openAppointmentBtn"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Add Appointment
+
+                    </button>
+
+                </div>
+
+            </header>
+
+
+
+            <!-- =================================
+                 SUMMARY CARDS
+                 ================================= -->
+
+            <section class="summary-cards">
+
+
+                <!-- Total -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon pink-icon">
+
+                        <i class="fa-regular fa-calendar-days"></i>
+
+                    </div>
+
+                    <div class="summary-number">
+                        120
+                    </div>
+
+                    <h3>
+                        Total Appointments
+                    </h3>
+
+                    <p>
+                        All time appointments
+                    </p>
+
+                </div>
+
+
+
+                <!-- Today's -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon purple-icon">
+
+                        <i class="fa-regular fa-calendar-check"></i>
+
+                    </div>
+
+                    <div class="summary-number">
+                        7
+                    </div>
+
+                    <h3>
+                        Today's Appointments
+                    </h3>
+
+                    <p>
+                        Scheduled for today
+                    </p>
+
+                </div>
+
+
+
+                <!-- Completed -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon green-icon">
+
+                        <i class="fa-solid fa-check"></i>
+
+                    </div>
+
+                    <div class="summary-number">
+                        2
+                    </div>
+
+                    <h3>
+                        Completed Appointments
+                    </h3>
+
+                    <p>
+                        Successfully completed
+                    </p>
+
+                </div>
+
+
+
+                <!-- Cancelled -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon red-icon">
+
+                        <i class="fa-solid fa-xmark"></i>
+
+                    </div>
+
+                    <div class="summary-number">
+                        1
+                    </div>
+
+                    <h3>
+                        Cancelled Appointments
+                    </h3>
+
+                    <p>
+                        Cancelled appointments
+                    </p>
+
+                </div>
+
+
+
+                <!-- Pending -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon orange-icon">
+
+                        <i class="fa-regular fa-clock"></i>
+
+                    </div>
+
+                    <div class="summary-number">
+                        2
+                    </div>
+
+                    <h3>
+                        Pending Appointments
+                    </h3>
+
+                    <p>
+                        Yet to be confirmed
+                    </p>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================
+                 TODAY'S APPOINTMENTS
+                 ================================= -->
+
+            <section class="appointments-section">
+
+
+                <!-- Appointment Header -->
+
+                <div class="appointments-header">
+
+                    <div class="appointments-title">
+
+                        <i class="fa-regular fa-calendar-check"></i>
+
+                        <h2>
+                            Today's Appointments
+                        </h2>
+
+                    </div>
+
+
+                    <span class="appointment-count">
+                        32 Appointments
+                    </span>
+
+                </div>
+
+
+
+                <!-- =================================
+                     APPOINTMENT TABLE
+                     ================================= -->
+
+                <div class="table-container">
+
+                    <table class="appointments-table">
+
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Time
+                                </th>
+
+                                <th>
+                                    Client Name
+                                </th>
+
+                                <th>
+                                    Service
+                                </th>
+
+                                <th>
+                                    Phone
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Remarks
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+
+                        <tbody id="appointmentsTableBody">
+
+
+                            <!-- Appointment 1 -->
+
+                            <tr>
+
+                                <td class="appointment-time">
+                                    09:00 AM
+                                </td>
+
+                                <td>
+                                    Sarah Johnson
+                                </td>
+
+                                <td>
+                                    Haircut & Styling
+                                </td>
+
+                                <td>
+                                    +92 300 1234567
+                                </td>
+
+                                <td>
+
+                                    <span class="status completed">
+                                        Completed
+                                    </span>
+
+                                </td>
+
+                                <td>
+                                    Regular client
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- Appointment 2 -->
+
+                            <tr>
+
+                                <td class="appointment-time">
+                                    10:30 AM
+                                </td>
+
+                                <td>
+                                    Emily Davis
+                                </td>
+
+                                <td>
+                                    Facial Treatment
+                                </td>
+
+                                <td>
+                                    +92 301 2345678
+                                </td>
+
+                                <td>
+
+                                    <span class="status completed">
+                                        Completed
+                                    </span>
+
+                                </td>
+
+                                <td>
+                                    Great experience
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- Appointment 3 -->
+
+                            <tr>
+
+                                <td class="appointment-time">
+                                    12:00 PM
+                                </td>
+
+                                <td>
+                                    Jessica Wilson
+                                </td>
+
+                                <td>
+                                    Hair Coloring
+                                </td>
+
+                                <td>
+                                    +92 302 3456789
+                                </td>
+
+                                <td>
+
+                                    <span class="status upcoming">
+                                        Upcoming
+                                    </span>
+
+                                </td>
+
+                                <td>
+                                    First-time client
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- Appointment 4 -->
+
+                            <tr>
+
+                                <td class="appointment-time">
+                                    01:30 PM
+                                </td>
+
+                                <td>
+                                    Amanda Brown
+                                </td>
+
+                                <td>
+                                    Manicure & Pedicure
+                                </td>
+
+                                <td>
+                                    +92 303 4567890
+                                </td>
+
+                                <td>
+
+                                    <span class="status upcoming">
+                                        Upcoming
+                                    </span>
+
+                                </td>
+
+                                <td>
+                                    —
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- Appointment 5 -->
+
+                            <tr>
+
+                                <td class="appointment-time">
+                                    03:00 PM
+                                </td>
+
+                                <td>
+                                    Olivia Martinez
+                                </td>
+
+                                <td>
+                                    Spa & Massage
+                                </td>
+
+                                <td>
+                                    +92 304 5678901
+                                </td>
+
+                                <td>
+
+                                    <span class="status pending">
+                                        Pending
+                                    </span>
+
+                                </td>
+
+                                <td>
+                                    Waiting confirmation
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- Appointment 6 -->
+
+                            <tr>
+
+                                <td class="appointment-time">
+                                    04:30 PM
+                                </td>
+
+                                <td>
+                                    Sophia Taylor
+                                </td>
+
+                                <td>
+                                    Makeup Session
+                                </td>
+
+                                <td>
+                                    +92 305 6789012
+                                </td>
+
+                                <td>
+
+                                    <span class="status cancelled">
+                                        Cancelled
+                                    </span>
+
+                                </td>
+
+                                <td>
+                                    Rescheduled
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- Appointment 7 -->
+
+                            <tr>
+
+                                <td class="appointment-time">
+                                    06:00 PM
+                                </td>
+
+                                <td>
+                                    Mia Anderson
+                                </td>
+
+                                <td>
+                                    Hair Treatment
+                                </td>
+
+                                <td>
+                                    +92 306 7890123
+                                </td>
+
+                                <td>
+
+                                    <span class="status pending">
+                                        Pending
+                                    </span>
+
+                                </td>
+
+                                <td>
+                                    Waiting confirmation
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+
+        </section>
+
+
+
+        <!-- =========================================
+             ADD APPOINTMENT MODAL
+             ========================================= -->
+
+        <div
+            class="appointment-overlay"
+            id="appointmentOverlay"
+        >
+
+
+            <div
+                class="appointment-modal"
+                id="appointmentModal"
+            >
+
+
+                <!-- Modal Header -->
+
+                <div class="modal-header">
+
+                    <div>
+
+                        <p class="modal-label">
+                            BLUSH & BRUSH
+                        </p>
+
+                        <h2>
+                            Add Appointment
+                        </h2>
+
+                        <p>
+                            Create a new client appointment.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="close-modal"
+                        id="closeAppointmentBtn"
+                    >
+
+                        <i class="fa-solid fa-xmark"></i>
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- =================================
+                     APPOINTMENT FORM
+                     ================================= -->
+
+                <form
+                    id="appointmentForm"
+                    class="appointment-form"
+                >
+
+
+                    <!-- Client Name -->
+
+                    <div class="form-field">
+
+                        <label for="clientName">
+                            Client Name
+                        </label>
+
+                        <div class="modal-input">
+
+                            <i class="fa-regular fa-user"></i>
+
+                            <input
+                                type="text"
+                                id="clientName"
+                                name="clientName"
+                                placeholder="Enter client name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Phone -->
+
+                    <div class="form-field">
+
+                        <label for="clientPhone">
+                            Phone Number
+                        </label>
+
+                        <div class="modal-input">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <input
+                                type="tel"
+                                id="clientPhone"
+                                name="clientPhone"
+                                placeholder="Enter phone number"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Service -->
+
+                    <div class="form-field">
+
+                        <label for="service">
+                            Service
+                        </label>
+
+                        <div class="modal-input">
+
+                            <i class="fa-solid fa-sparkles"></i>
+
+                            <select
+                                id="service"
+                                name="service"
+                                required
+                            >
+
+                                <option value="">
+                                    Select a service
+                                </option>
+
+                                <option value="Haircut & Styling">
+                                    Haircut & Styling
+                                </option>
+
+                                <option value="Hair Coloring">
+                                    Hair Coloring
+                                </option>
+
+                                <option value="Facial Treatment">
+                                    Facial Treatment
+                                </option>
+
+                                <option value="Manicure & Pedicure">
+                                    Manicure & Pedicure
+                                </option>
+
+                                <option value="Spa & Massage">
+                                    Spa & Massage
+                                </option>
+
+                                <option value="Makeup Session">
+                                    Makeup Session
+                                </option>
+
+                                <option value="Hair Treatment">
+                                    Hair Treatment
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Date + Time -->
+
+                    <div class="form-row">
+
+
+                        <div class="form-field">
+
+                            <label for="appointmentDate">
+                                Date
+                            </label>
+
+                            <div class="modal-input">
+
+                                <i class="fa-regular fa-calendar"></i>
+
+                                <input
+                                    type="date"
+                                    id="appointmentDate"
+                                    name="appointmentDate"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-field">
+
+                            <label for="appointmentTime">
+                                Time
+                            </label>
+
+                            <div class="modal-input">
+
+                                <i class="fa-regular fa-clock"></i>
+
+                                <input
+                                    type="time"
+                                    id="appointmentTime"
+                                    name="appointmentTime"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- Status -->
+
+                    <div class="form-field">
+
+                        <label for="appointmentStatus">
+                            Status
+                        </label>
+
+                        <div class="modal-input">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            <select
+                                id="appointmentStatus"
+                                name="appointmentStatus"
+                            >
+
+                                <option value="Pending">
+                                    Pending
+                                </option>
+
+                                <option value="Upcoming">
+                                    Upcoming
+                                </option>
+
+                                <option value="Completed">
+                                    Completed
+                                </option>
+
+                                <option value="Cancelled">
+                                    Cancelled
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Remarks -->
+
+                    <div class="form-field">
+
+                        <label for="remarks">
+                            Remarks
+                        </label>
+
+                        <textarea
+                            id="remarks"
+                            name="remarks"
+                            rows="3"
+                            placeholder="Add any special notes..."
+                        ></textarea>
+
+                    </div>
+
+
+
+                    <!-- Form Buttons -->
+
+                    <div class="modal-actions">
+
+                        <button
+                            type="button"
+                            class="cancel-btn"
+                            id="cancelAppointmentBtn"
+                        >
+                            Cancel
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="save-appointment-btn"
+                        >
+
+                            <i class="fa-solid fa-check"></i>
+
+                            Add Appointment
+
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         ADMIN JAVASCRIPT
+         ========================================= -->
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>
