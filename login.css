@@ -1,0 +1,861 @@
+/* ==========================================
+   BLUSH & BRUSH
+   ADMIN LOGIN PAGE
+   ========================================== */
+
+
+/* ---------- RESET ---------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    color: #292326;
+}
+
+
+/* ==========================================
+   MAIN LOGIN PAGE
+   ========================================== */
+
+.login-page {
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 8% 20%,
+            rgba(239, 128, 155, 0.20),
+            transparent 22%
+        ),
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(249, 188, 204, 0.30),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 15% 90%,
+            rgba(247, 182, 200, 0.25),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #fff7f8 48%,
+            #fdf0f3 100%
+        );
+}
+
+
+/* ==========================================
+   SOFT BACKGROUND GLOW
+   ========================================== */
+
+.background-decoration {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: 0;
+}
+
+
+/* Large soft pink glow */
+
+.soft-glow {
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(70px);
+
+    opacity: 0.45;
+}
+
+.glow-one {
+    width: 280px;
+    height: 280px;
+
+    top: -120px;
+    left: -90px;
+
+    background: rgba(235, 126, 153, 0.20);
+}
+
+.glow-two {
+    width: 320px;
+    height: 320px;
+
+    right: -130px;
+    bottom: -130px;
+
+    background: rgba(245, 169, 190, 0.28);
+}
+
+
+/* ==========================================
+   CSS FLOWER DECORATION
+   ========================================== */
+
+/*
+   Ye flowers kisi external image ke baghair
+   CSS se background mein decorative flowers
+   create kar rahe hain.
+*/
+
+.login-page::before,
+.login-page::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    opacity: 0.55;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 20%,
+            rgba(232, 111, 143, 0.28) 0 12%,
+            transparent 13%
+        ),
+        radial-gradient(
+            ellipse at 80% 50%,
+            rgba(232, 111, 143, 0.24) 0 12%,
+            transparent 13%
+        ),
+        radial-gradient(
+            ellipse at 50% 80%,
+            rgba(232, 111, 143, 0.25) 0 12%,
+            transparent 13%
+        ),
+        radial-gradient(
+            ellipse at 20% 50%,
+            rgba(232, 111, 143, 0.24) 0 12%,
+            transparent 13%
+        ),
+        radial-gradient(
+            circle at center,
+            rgba(255, 255, 255, 0.8) 0 8%,
+            transparent 9%
+        );
+}
+
+
+/* Left flower */
+
+.login-page::before {
+    left: -35px;
+    bottom: 20px;
+
+    transform: rotate(-12deg);
+}
+
+
+/* Right flower */
+
+.login-page::after {
+    right: -35px;
+    top: 20px;
+
+    transform: rotate(18deg);
+}
+
+
+/* ==========================================
+   LOGIN CARD
+   ========================================== */
+
+.login-card {
+    position: relative;
+
+    z-index: 5;
+
+    width: 100%;
+    max-width: 430px;
+
+    padding: 27px 34px 25px;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border: 1px solid rgba(235, 205, 213, 0.9);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 18px 50px rgba(190, 90, 117, 0.14);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    animation: cardAppear 0.7s ease;
+}
+
+
+/* Small pink line on top */
+
+.login-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 70px;
+    height: 3px;
+
+    border-radius: 0 0 8px 8px;
+
+    background: #df6f8b;
+}
+
+
+/* ==========================================
+   BRAND
+   ========================================== */
+
+.brand {
+    text-align: center;
+
+    margin-bottom: 16px;
+}
+
+
+/* Logo icon */
+
+.brand-icon {
+    width: 43px;
+    height: 43px;
+
+    margin: 0 auto 7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fff1f4;
+
+    border: 1px solid #f0d5dc;
+
+    color: #df6f8b;
+
+    font-size: 18px;
+
+    box-shadow:
+        0 5px 15px rgba(223, 111, 139, 0.10);
+
+    transition: 0.3s ease;
+}
+
+.brand-icon:hover {
+    transform: translateY(-3px);
+}
+
+
+/* Brand name */
+
+.brand h1 {
+    font-family: "DM Serif Display", serif;
+
+    font-size: 25px;
+
+    font-weight: 400;
+
+    letter-spacing: 1.8px;
+
+    color: #282225;
+}
+
+
+/* Beauty Salon */
+
+.brand span {
+    display: block;
+
+    margin-top: 1px;
+
+    font-size: 7px;
+
+    font-weight: 500;
+
+    letter-spacing: 3.5px;
+
+    color: #91777f;
+}
+
+
+/* ==========================================
+   LOGIN HEADING
+   ========================================== */
+
+.login-heading {
+    text-align: center;
+
+    margin-bottom: 18px;
+}
+
+.login-heading h2 {
+    font-family: "DM Serif Display", serif;
+
+    font-size: 26px;
+
+    font-weight: 400;
+
+    color: #282225;
+
+    margin-bottom: 4px;
+}
+
+.login-heading p {
+    font-size: 10.5px;
+
+    line-height: 1.5;
+
+    color: #776d72;
+}
+
+
+/* ==========================================
+   FORM
+   ========================================== */
+
+.login-form {
+    width: 100%;
+}
+
+
+/* Form group */
+
+.form-group {
+    margin-bottom: 13px;
+}
+
+
+/* Labels */
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 10.5px;
+
+    font-weight: 500;
+
+    color: #484044;
+}
+
+
+/* ==========================================
+   LABEL ROW
+   ========================================== */
+
+.label-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 5px;
+}
+
+.label-row label {
+    margin-bottom: 0;
+}
+
+
+/* Forgot password */
+
+.forgot-password {
+    font-size: 9px;
+
+    color: #df6f8b;
+
+    text-decoration: none;
+
+    transition: 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #c55370;
+
+    text-decoration: underline;
+}
+
+
+/* ==========================================
+   INPUT
+   ========================================== */
+
+.input-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+
+/* Input field */
+
+.input-wrapper input {
+    width: 100%;
+
+    height: 43px;
+
+    padding: 0 40px;
+
+    border: 1px solid #eadde1;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #ffffff;
+
+    color: #302a2d;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 10.5px;
+
+    transition: 0.3s ease;
+}
+
+
+/* Placeholder */
+
+.input-wrapper input::placeholder {
+    color: #b3a7ac;
+
+    font-size: 10px;
+}
+
+
+/* Focus */
+
+.input-wrapper input:focus {
+    border-color: #df6f8b;
+
+    box-shadow:
+        0 0 0 3px rgba(223, 111, 139, 0.08);
+}
+
+
+/* Left input icon */
+
+.input-icon {
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #b28d98;
+
+    font-size: 12px;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+/* Icon focus */
+
+.input-wrapper:focus-within .input-icon {
+    color: #df6f8b;
+}
+
+
+/* ==========================================
+   PASSWORD TOGGLE
+   ========================================== */
+
+.password-toggle {
+    position: absolute;
+
+    right: 9px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #a79ba0;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: #df6f8b;
+
+    background: #fff0f4;
+}
+
+
+/* ==========================================
+   ERROR MESSAGE
+   ========================================== */
+
+.error-message {
+    display: block;
+
+    min-height: 0;
+
+    margin-top: 3px;
+
+    font-size: 8.5px;
+
+    color: #d55773;
+}
+
+
+/* ==========================================
+   REMEMBER ME
+   ========================================== */
+
+.form-options {
+    margin: 0 0 15px;
+}
+
+
+.remember-me {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    cursor: pointer;
+
+    color: #71686c;
+
+    font-size: 9.5px;
+
+    user-select: none;
+}
+
+
+/* Hide checkbox */
+
+.remember-me input {
+    display: none;
+}
+
+
+/* Custom checkbox */
+
+.custom-checkbox {
+    width: 14px;
+    height: 14px;
+
+    border: 1px solid #d9c4cb;
+
+    border-radius: 3px;
+
+    background: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.3s ease;
+}
+
+
+/* Checked */
+
+.remember-me input:checked + .custom-checkbox {
+    background: #df6f8b;
+
+    border-color: #df6f8b;
+}
+
+
+/* Tick */
+
+.remember-me input:checked + .custom-checkbox::after {
+    content: "✓";
+
+    color: #ffffff;
+
+    font-size: 8px;
+
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   LOGIN BUTTON
+   ========================================== */
+
+.login-button {
+    width: 100%;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e77c97,
+            #d95f7d
+        );
+
+    color: #ffffff;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.2px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(217, 95, 125, 0.22);
+
+    transition: 0.3s ease;
+}
+
+
+/* Hover */
+
+.login-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px rgba(217, 95, 125, 0.28);
+}
+
+
+/* Active */
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+
+/* Arrow */
+
+.login-button i {
+    font-size: 10px;
+
+    transition: 0.3s ease;
+}
+
+.login-button:hover i {
+    transform: translateX(3px);
+}
+
+
+/* ==========================================
+   LOGIN MESSAGE
+   ========================================== */
+
+.login-message {
+    min-height: 14px;
+
+    margin-top: 7px;
+
+    text-align: center;
+
+    font-size: 9px;
+}
+
+.login-message.success {
+    color: #39945d;
+}
+
+.login-message.error {
+    color: #d55773;
+}
+
+
+/* ==========================================
+   DIVIDER
+   ========================================== */
+
+.divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin: 16px 0 12px;
+}
+
+
+.divider span {
+    flex: 1;
+
+    height: 1px;
+
+    background: #eee1e5;
+}
+
+
+.divider p {
+    font-size: 8px;
+
+    color: #aaa0a5;
+
+    letter-spacing: 0.4px;
+}
+
+
+/* ==========================================
+   SECURITY NOTE
+   ========================================== */
+
+.security-note {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    color: #8d8388;
+
+    font-size: 8.5px;
+}
+
+
+.security-note i {
+    color: #df6f8b;
+
+    font-size: 9px;
+}
+
+
+/* ==========================================
+   CARD ANIMATION
+   ========================================== */
+
+@keyframes cardAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(18px)
+            scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    .login-page {
+        padding: 15px;
+    }
+
+    .login-card {
+        max-width: 410px;
+
+        padding: 25px 25px 22px;
+    }
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 400px) {
+
+    .login-card {
+        padding: 23px 20px 20px;
+
+        border-radius: 17px;
+    }
+
+    .brand h1 {
+        font-size: 22px;
+    }
+
+    .login-heading h2 {
+        font-size: 24px;
+    }
+
+    .input-wrapper input {
+        height: 42px;
+    }
+
+    .login-button {
+        height: 43px;
+    }
+}

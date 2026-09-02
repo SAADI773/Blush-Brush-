@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Blush & Brush | Administrator Login</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         LOGIN PAGE
+    ========================================== -->
+
+    <main class="login-page">
+
+        <!-- Background Decoration -->
+        <!--
+            Yahan tum baad mein apni floral background image laga sakti ho.
+            CSS mein background-image ki jagah ye section already ready hai.
+        -->
+        <div class="background-decoration">
+            <div class="soft-glow glow-one"></div>
+            <div class="soft-glow glow-two"></div>
+        </div>
+
+
+        <!-- =====================================
+             LOGIN CARD
+        ====================================== -->
+
+        <section class="login-card">
+
+            <!-- Brand -->
+            <div class="brand">
+
+                <div class="brand-icon">
+                    <i class="fa-solid fa-spa"></i>
+                </div>
+
+                <h1>BLUSH &amp; BRUSH</h1>
+
+                <span>BEAUTY SALON</span>
+
+            </div>
+
+
+            <!-- Login Heading -->
+            <div class="login-heading">
+
+                <h2>Administrator Login</h2>
+
+                <p>
+                    Welcome back! Please login to continue
+                    to your account.
+                </p>
+
+            </div>
+
+
+            <!-- =================================
+                 LOGIN FORM
+            ================================== -->
+
+            <form id="loginForm" class="login-form">
+
+                <!-- Email -->
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-regular fa-envelope input-icon"></i>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                    <small class="error-message" id="emailError"></small>
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="form-group">
+
+                    <div class="label-row">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <a href="#" class="forgot-password">
+                            Forgot Password?
+                        </a>
+
+                    </div>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock input-icon"></i>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="passwordToggle"
+                            aria-label="Show password"
+                        >
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+
+                    </div>
+
+                    <small class="error-message" id="passwordError"></small>
+
+                </div>
+
+
+                <!-- Remember Me -->
+                <div class="form-options">
+
+                    <label class="remember-me">
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                            name="rememberMe"
+                        >
+
+                        <span class="custom-checkbox"></span>
+
+                        <span>Remember me</span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- Login Button -->
+                <button
+                    type="submit"
+                    class="login-button"
+                    id="loginButton"
+                >
+
+                    <span class="button-text">
+                        Login
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+
+                <!-- General Login Message -->
+                <div
+                    class="login-message"
+                    id="loginMessage"
+                    aria-live="polite"
+                ></div>
+
+            </form>
+
+
+            <!-- Divider -->
+            <div class="divider">
+                <span></span>
+                <p>Secure Access</p>
+                <span></span>
+            </div>
+
+
+            <!-- Security Note -->
+            <div class="security-note">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>
+                    Secure Administrator Access Only
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Custom JavaScript -->
+    <script src="login.js"></script>
+
+</body>
+</html>
