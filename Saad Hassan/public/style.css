@@ -162,7 +162,7 @@ body {
 }
 
 /* ==========================================
-   3. STATUS BADGES
+   3. STATUS BADGES & ROLE PILLS
    ========================================== */
 .badge-status {
     display: inline-flex;
@@ -200,7 +200,80 @@ body {
     border: 1px solid #FCA5A5;
 }
 
-/* Custom Scrollbar for Modal Windows */
+.badge-role {
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.badge-superadmin { background-color: #F3E8FF; color: #6B21A8; border: 1px solid #E9D5FF; }
+.badge-admin { background-color: #FFE4E6; color: #9F1239; border: 1px solid #FECDD3; }
+.badge-user { background-color: #F3F4F6; color: #374151; border: 1px solid #E5E7EB; }
+
+/* ==========================================
+   4. USER SIDEBAR & CALENDAR WIDGET
+   ========================================== */
+.userNavTab.active {
+    background-color: #D86B81;
+    color: #ffffff !important;
+    box-shadow: 0 2px 4px rgba(216, 107, 129, 0.3);
+}
+
+.userNavTab.active i {
+    color: #ffffff !important;
+}
+
+.cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.cal-header-cell {
+    text-align: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #8a7273;
+    padding: 6px 0;
+    text-transform: uppercase;
+}
+
+.cal-day-cell {
+    min-h: 58px;
+    border-radius: 12px;
+    padding: 4px;
+    background-color: #FFF5F6;
+    border: 1px solid #FCE7F3;
+    font-size: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cal-day-cell.other-month {
+    opacity: 0.35;
+    background-color: #FAFAFA;
+}
+
+.cal-day-cell.today {
+    border-color: #D86B81;
+    font-weight: bold;
+    background-color: #FFFFFF;
+}
+
+.cal-event-pill {
+    font-size: 0.6rem;
+    padding: 1px 4px;
+    border-radius: 6px;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+}
+
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;

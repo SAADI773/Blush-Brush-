@@ -20,7 +20,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
-    <!-- Tailwind CSS (for modern UI utility components) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -62,7 +62,16 @@
 
 
     <!-- =========================================
-         2. NAVIGATION HEADER
+         2. ANNOUNCEMENT TOP BANNER (Fetched live)
+         ========================================= -->
+    <div id="announcementBanner" class="hidden bg-gradient-to-r from-pink-600 to-[#D86B81] text-white text-xs font-semibold py-2 px-4 text-center relative">
+        <span id="announcementText"><i class="fa-solid fa-bullhorn mr-1.5"></i> Special Announcement: 25% Off Spa Packages!</span>
+        <button id="closeAnnouncementBanner" class="absolute right-3 top-2 text-white/80 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+
+    <!-- =========================================
+         3. NAVIGATION HEADER
          ========================================= -->
     <header class="sticky top-0 z-40 py-3 px-4 sm:px-6 lg:px-8 bg-[#FFF5F6]/90 backdrop-blur-md transition-all">
         <nav class="max-w-7xl mx-auto bg-white rounded-2xl shadow-sm border border-pink-100/90 px-4 sm:px-6 py-2.5 flex items-center justify-between">
@@ -83,19 +92,16 @@
                 <a href="#home" class="hover:text-[#D86B81] transition-colors py-1">Home</a>
                 <a href="#about" class="hover:text-[#D86B81] transition-colors py-1">About Us</a>
                 <a href="#services" class="hover:text-[#D86B81] transition-colors py-1">Services</a>
-                <a href="#gallery" class="hover:text-[#D86B81] transition-colors py-1">Gallery</a>
                 <a href="#contact" class="hover:text-[#D86B81] transition-colors py-1">Contact</a>
             </div>
 
             <!-- Header Action Controls -->
             <div class="flex items-center space-x-3">
-
-                <!-- Auth Buttons Container (Dynamically updated by JS) -->
                 <div id="navAuthContainer" class="flex items-center space-x-2">
                     <button id="openAuthBtn" class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#D86B81] bg-[#FFF0F3] hover:bg-[#D86B81] hover:text-white rounded-xl transition-all">
                         <i class="fa-regular fa-user mr-1"></i> Login / Signup
                     </button>
-                    <button id="navBookBtn" class="hidden sm:inline-block bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold tracking-wider uppercase px-5 py-2.5 rounded-xl shadow-sm hover:shadow-md transition-all">
+                    <button class="openBookingModalBtn hidden sm:inline-block bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold tracking-wider uppercase px-5 py-2.5 rounded-xl shadow-sm hover:shadow-md transition-all">
                         Book Appointment
                     </button>
                 </div>
@@ -120,7 +126,7 @@
 
 
     <!-- =========================================
-         3. HERO LANDING SECTION
+         4. HERO LANDING SECTION
          ========================================= -->
     <section id="home" class="relative pt-6 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-visible">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[75vh]">
@@ -141,7 +147,7 @@
                     <a href="#services" class="px-7 py-3.5 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold tracking-wider uppercase rounded-xl shadow-md hover:shadow-lg transition-all">
                         Explore Services
                     </a>
-                    <button id="heroBookBtn" class="px-7 py-3.5 bg-white text-[#2C2627] hover:bg-[#2C2627] hover:text-white text-xs font-semibold tracking-wider uppercase border border-pink-200 rounded-xl shadow-xs transition-all">
+                    <button class="openBookingModalBtn px-7 py-3.5 bg-white text-[#2C2627] hover:bg-[#2C2627] hover:text-white text-xs font-semibold tracking-wider uppercase border border-pink-200 rounded-xl shadow-xs transition-all">
                         Book Appointment
                     </button>
                 </div>
@@ -150,7 +156,7 @@
             <!-- Hero Image Showcase -->
             <div class="lg:col-span-6 flex justify-center">
                 <div class="relative w-full max-w-md lg:max-w-lg rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-pink-100">
-                    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80" alt="Blush & Brush Salon Model" class="w-full h-[450px] object-cover object-center hover:scale-105 transition-transform duration-700">
+                    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80" alt="Blush &amp; Brush Model" class="w-full h-[450px] object-cover object-center hover:scale-105 transition-transform duration-700">
                     <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-2xl border border-pink-100 shadow-lg flex items-center justify-between">
                         <div>
                             <p class="text-xs font-bold text-gray-900">Rated #1 Salon in DHA Lahore</p>
@@ -172,62 +178,11 @@
 
 
     <!-- =========================================
-         4. FEATURES OVERLAP CARDS
-         ========================================= -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-        <div class="bg-white rounded-3xl shadow-xl border border-pink-100 p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <div class="flex items-center space-x-4 p-2">
-                <div class="w-12 h-12 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center shrink-0 text-xl">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                </div>
-                <div>
-                    <h4 class="font-serif font-bold text-base text-[#2C2627]">Premium Products</h4>
-                    <p class="text-xs text-gray-500">100% organic & dermatologically tested</p>
-                </div>
-            </div>
-
-            <div class="flex items-center space-x-4 p-2">
-                <div class="w-12 h-12 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center shrink-0 text-xl">
-                    <i class="fa-solid fa-user-ninja"></i>
-                </div>
-                <div>
-                    <h4 class="font-serif font-bold text-base text-[#2C2627]">Expert Stylists</h4>
-                    <p class="text-xs text-gray-500">Internationally certified professionals</p>
-                </div>
-            </div>
-
-            <div class="flex items-center space-x-4 p-2">
-                <div class="w-12 h-12 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center shrink-0 text-xl">
-                    <i class="fa-solid fa-shield-virus"></i>
-                </div>
-                <div>
-                    <h4 class="font-serif font-bold text-base text-[#2C2627]">Hygienic &amp; Safe</h4>
-                    <p class="text-xs text-gray-500">Medical grade tool sterilization</p>
-                </div>
-            </div>
-
-            <div class="flex items-center space-x-4 p-2">
-                <div class="w-12 h-12 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center shrink-0 text-xl">
-                    <i class="fa-solid fa-heart"></i>
-                </div>
-                <div>
-                    <h4 class="font-serif font-bold text-base text-[#2C2627]">100% Satisfaction</h4>
-                    <p class="text-xs text-gray-500">Bespoke personalized consultations</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- =========================================
          5. ABOUT US SECTION
          ========================================= -->
     <section id="about" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-pink-100/80">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
-            <!-- 3 Image Grid -->
             <div class="lg:col-span-5 grid grid-cols-2 gap-3">
                 <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=500&q=80" alt="Beauty Care" class="rounded-2xl shadow-md object-cover w-full h-[340px]">
                 <div class="space-y-3">
@@ -236,17 +191,15 @@
                 </div>
             </div>
 
-            <!-- Story Content -->
             <div class="lg:col-span-7 space-y-5">
                 <span class="text-xs font-bold tracking-[0.2em] text-[#D86B81] uppercase block">Sanctuary of Elegance</span>
                 <h2 class="text-3xl sm:text-4xl font-serif font-bold text-[#2C2627]">
                     Crafting Unforgettable Beauty Experiences Since 2018
                 </h2>
                 <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                    Blush &amp; Brush was founded with a clear vision: to create a luxurious, soothing environment where high-end cosmetics meet compassionate client care. Our salon has grown into Lahore's premier target destination for signature haircuts, rejuvenating facials, and bridal styling.
+                    Blush &amp; Brush was founded with a clear vision: to create a luxurious, soothing environment where high-end cosmetics meet compassionate client care.
                 </p>
                 
-                <!-- Founder Quote -->
                 <div class="p-4 bg-white border-l-4 border-[#D86B81] rounded-r-2xl border-pink-100 shadow-xs">
                     <p class="text-xs italic text-gray-700 font-serif">
                         "Beauty is not just how you look; it is an emotion of confidence and tranquility that stays with you."
@@ -254,7 +207,6 @@
                     <span class="text-[11px] font-bold text-[#D86B81] block mt-1 uppercase tracking-wider">— Founder, Blush &amp; Brush</span>
                 </div>
 
-                <!-- Stats Grid -->
                 <div class="grid grid-cols-4 gap-4 text-center pt-2">
                     <div class="p-3 bg-white rounded-xl border border-pink-100">
                         <span class="text-2xl sm:text-3xl font-serif font-bold text-[#D86B81]">8+</span>
@@ -280,91 +232,17 @@
 
 
     <!-- =========================================
-         6. SERVICES & OFFERS SECTION
+         6. SERVICES SECTION (Rendered dynamically & hardcoded fallback)
          ========================================= -->
     <section id="services" class="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-pink-100/80">
         <div class="text-center max-w-xl mx-auto mb-10 space-y-2">
             <span class="text-xs font-bold tracking-[0.2em] text-[#D86B81] uppercase">Tailored Treatments</span>
             <h2 class="text-3xl sm:text-4xl font-serif font-bold text-[#2C2627]">Our Popular Services</h2>
-            <p class="text-xs text-gray-500">Explore our wide variety of professional beauty services.</p>
+            <p class="text-xs text-gray-500">Explore our professional beauty services curated for your elegance.</p>
         </div>
 
-        <!-- 6 Service Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <div class="bg-white p-7 rounded-2xl border border-pink-100 shadow-xs text-center flex flex-col items-center hover:shadow-xl hover:border-[#D86B81]/40 transition-all group">
-                <div class="w-14 h-14 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-[#scissors] fa-scissors"></i>
-                </div>
-                <h3 class="text-base font-serif font-bold text-gray-900 mb-1">Haircut &amp; Styling</h3>
-                <p class="text-xs text-gray-500 leading-relaxed mb-4">Precision cutting, keratin treatments, and custom hair coloring.</p>
-                <button class="bookServiceBtn mt-auto text-xs font-bold text-[#D86B81] uppercase tracking-wider hover:underline" data-service="Haircut & Styling">Book This Service &rarr;</button>
-            </div>
-
-            <div class="bg-white p-7 rounded-2xl border border-pink-100 shadow-xs text-center flex flex-col items-center hover:shadow-xl hover:border-[#D86B81]/40 transition-all group">
-                <div class="w-14 h-14 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-paint-brush"></i>
-                </div>
-                <h3 class="text-base font-serif font-bold text-gray-900 mb-1">Makeup &amp; Bridal</h3>
-                <p class="text-xs text-gray-500 leading-relaxed mb-4">Glamorous party makeup and HD bridal makeover sessions.</p>
-                <button class="bookServiceBtn mt-auto text-xs font-bold text-[#D86B81] uppercase tracking-wider hover:underline" data-service="Makeup Session">Book This Service &rarr;</button>
-            </div>
-
-            <div class="bg-white p-7 rounded-2xl border border-pink-100 shadow-xs text-center flex flex-col items-center hover:shadow-xl hover:border-[#D86B81]/40 transition-all group">
-                <div class="w-14 h-14 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-face-smile-beam"></i>
-                </div>
-                <h3 class="text-base font-serif font-bold text-gray-900 mb-1">Facial &amp; Skin Care</h3>
-                <p class="text-xs text-gray-500 leading-relaxed mb-4">Deep cleansing, hydra-facials, and skin rejuvenation treatments.</p>
-                <button class="bookServiceBtn mt-auto text-xs font-bold text-[#D86B81] uppercase tracking-wider hover:underline" data-service="Facial Treatment">Book This Service &rarr;</button>
-            </div>
-
-            <div class="bg-white p-7 rounded-2xl border border-pink-100 shadow-xs text-center flex flex-col items-center hover:shadow-xl hover:border-[#D86B81]/40 transition-all group">
-                <div class="w-14 h-14 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-hand-sparkles"></i>
-                </div>
-                <h3 class="text-base font-serif font-bold text-gray-900 mb-1">Nail Art &amp; Extensions</h3>
-                <p class="text-xs text-gray-500 leading-relaxed mb-4">Acrylic extension, gel manicures, and custom nail art designs.</p>
-                <button class="bookServiceBtn mt-auto text-xs font-bold text-[#D86B81] uppercase tracking-wider hover:underline" data-service="Manicure & Pedicure">Book This Service &rarr;</button>
-            </div>
-
-            <div class="bg-white p-7 rounded-2xl border border-pink-100 shadow-xs text-center flex flex-col items-center hover:shadow-xl hover:border-[#D86B81]/40 transition-all group">
-                <div class="w-14 h-14 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-hot-tub-person"></i>
-                </div>
-                <h3 class="text-base font-serif font-bold text-gray-900 mb-1">Spa &amp; Body Massage</h3>
-                <p class="text-xs text-gray-500 leading-relaxed mb-4">Full body aromatherapy, hot stone therapy, and relaxation massages.</p>
-                <button class="bookServiceBtn mt-auto text-xs font-bold text-[#D86B81] uppercase tracking-wider hover:underline" data-service="Spa & Massage">Book This Service &rarr;</button>
-            </div>
-
-            <div class="bg-white p-7 rounded-2xl border border-pink-100 shadow-xs text-center flex flex-col items-center hover:shadow-xl hover:border-[#D86B81]/40 transition-all group">
-                <div class="w-14 h-14 rounded-2xl bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-[#eye] fa-eye"></i>
-                </div>
-                <h3 class="text-base font-serif font-bold text-gray-900 mb-1">Eyebrow &amp; Lash Care</h3>
-                <p class="text-xs text-gray-500 leading-relaxed mb-4">Lash lifting, microblading, and eyebrow threading.</p>
-                <button class="bookServiceBtn mt-auto text-xs font-bold text-[#D86B81] uppercase tracking-wider hover:underline" data-service="Hair Treatment">Book This Service &rarr;</button>
-            </div>
-
-        </div>
-
-        <!-- Pamper Offer Banner -->
-        <div class="mt-12 relative rounded-3xl overflow-hidden shadow-lg min-h-[260px] flex items-center bg-gradient-to-r from-pink-500 to-[#D86B81] p-8 sm:p-12 text-white">
-            <div class="relative z-10 max-w-lg space-y-3">
-                <span class="text-xs font-bold uppercase tracking-widest bg-white/20 px-3 py-1 rounded-full">Limited Season Offer</span>
-                <h3 class="text-3xl font-serif font-bold">Pamper Yourself — You Deserve It!</h3>
-                <p class="text-xs sm:text-sm text-pink-100 leading-relaxed">
-                    Book any beauty package today and enjoy a complimentary organic scalp massage & glow facial setup.
-                </p>
-                <div class="pt-2">
-                    <button class="openBookingModalBtn px-6 py-3 bg-white text-[#D86B81] hover:bg-pink-100 font-semibold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all">
-                        Claim &amp; Book Now
-                    </button>
-                </div>
-            </div>
-            <div class="hidden md:block absolute right-8 bottom-0 opacity-20 text-9xl">
-                <i class="fa-solid fa-gift"></i>
-            </div>
+        <div id="landingServicesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamically populated or rendered fallback by JS -->
         </div>
     </section>
 
@@ -375,8 +253,6 @@
     <footer id="contact" class="bg-white border-t border-pink-100 text-[#2C2627] pt-14 pb-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-10 border-b border-pink-100">
-                
-                <!-- Column 1 -->
                 <div class="space-y-4">
                     <div class="flex items-center gap-2">
                         <div class="w-8 h-8 rounded-full bg-[#FFF0F3] text-[#D86B81] flex items-center justify-center font-bold">
@@ -385,16 +261,10 @@
                         <span class="font-serif font-bold text-lg">BLUSH &amp; BRUSH</span>
                     </div>
                     <p class="text-xs text-gray-500 leading-relaxed">
-                        Your sanctuary of elegance and luxury beauty in DHA Lahore. Crafting beauty confidence with certified care.
+                        Your sanctuary of elegance in DHA Lahore. World-class treatments tailored for your radiance.
                     </p>
-                    <div class="flex space-x-3 pt-1">
-                        <a href="#" class="w-8 h-8 rounded-full bg-[#FFF0F3] text-[#D86B81] hover:bg-[#D86B81] hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-[#FFF0F3] text-[#D86B81] hover:bg-[#D86B81] hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-[#FFF0F3] text-[#D86B81] hover:bg-[#D86B81] hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-whatsapp"></i></a>
-                    </div>
                 </div>
 
-                <!-- Column 2 -->
                 <div class="space-y-3">
                     <h4 class="text-xs font-bold uppercase tracking-wider text-[#D86B81]">Quick Links</h4>
                     <ul class="space-y-2 text-xs text-gray-600">
@@ -405,7 +275,6 @@
                     </ul>
                 </div>
 
-                <!-- Column 3 -->
                 <div class="space-y-3">
                     <h4 class="text-xs font-bold uppercase tracking-wider text-[#D86B81]">Contact Us</h4>
                     <ul class="space-y-2.5 text-xs text-gray-600">
@@ -415,7 +284,6 @@
                     </ul>
                 </div>
 
-                <!-- Column 4 -->
                 <div class="space-y-3">
                     <h4 class="text-xs font-bold uppercase tracking-wider text-[#D86B81]">Opening Hours</h4>
                     <ul class="space-y-2 text-xs text-gray-600">
@@ -424,16 +292,10 @@
                         <li class="flex justify-between"><span>Sunday:</span> <span class="font-medium text-[#D86B81]">12:00 PM - 7:00 PM</span></li>
                     </ul>
                 </div>
-
             </div>
 
-            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-400">
+            <div class="pt-6 text-center text-[11px] text-gray-400">
                 <p>&copy; 2026 Blush &amp; Brush Beauty House. All Rights Reserved.</p>
-                <div class="space-x-3 mt-2 sm:mt-0">
-                    <a href="#" class="hover:text-gray-600">Privacy Policy</a>
-                    <span>&bull;</span>
-                    <a href="#" class="hover:text-gray-600">Terms of Service</a>
-                </div>
             </div>
         </div>
     </footer>
@@ -448,7 +310,6 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- Modal Brand Header -->
             <div class="text-center mb-6">
                 <div class="w-12 h-12 rounded-full bg-[#FFF0F3] text-[#D86B81] mx-auto flex items-center justify-center text-xl mb-2 font-bold">
                     <i class="fa-solid fa-spa"></i>
@@ -457,14 +318,9 @@
                 <p class="text-xs text-gray-500">Access your appointment dashboard</p>
             </div>
 
-            <!-- Tab Buttons -->
             <div class="flex border-b border-pink-100 mb-6 text-sm font-semibold">
-                <button id="tabLoginBtn" class="flex-1 py-2.5 text-center text-[#D86B81] border-b-2 border-[#D86B81] transition-all">
-                    Login
-                </button>
-                <button id="tabSignupBtn" class="flex-1 py-2.5 text-center text-gray-400 border-b-2 border-transparent hover:text-gray-600 transition-all">
-                    Signup
-                </button>
+                <button id="tabLoginBtn" class="flex-1 py-2.5 text-center text-[#D86B81] border-b-2 border-[#D86B81] transition-all">Login</button>
+                <button id="tabSignupBtn" class="flex-1 py-2.5 text-center text-gray-400 border-b-2 border-transparent hover:text-gray-600 transition-all">Signup</button>
             </div>
 
             <!-- LOGIN FORM -->
@@ -473,7 +329,7 @@
                     <label class="block text-xs font-semibold text-gray-700 mb-1">Email Address</label>
                     <div class="relative">
                         <i class="fa-regular fa-envelope absolute left-3.5 top-3 text-gray-400 text-sm"></i>
-                        <input type="email" id="loginEmail" required placeholder="name@example.com" class="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] focus:ring-1 focus:ring-[#D86B81] outline-none">
+                        <input type="email" id="loginEmail" required placeholder="name@example.com" class="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] outline-none">
                     </div>
                 </div>
 
@@ -481,178 +337,244 @@
                     <label class="block text-xs font-semibold text-gray-700 mb-1">Password</label>
                     <div class="relative">
                         <i class="fa-solid fa-lock absolute left-3.5 top-3 text-gray-400 text-sm"></i>
-                        <input type="password" id="loginPassword" required placeholder="Enter password" class="w-full pl-10 pr-10 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] focus:ring-1 focus:ring-[#D86B81] outline-none">
-                        <button type="button" class="togglePasswordBtn absolute right-3.5 top-3 text-gray-400 hover:text-gray-600 text-xs">
-                            <i class="fa-regular fa-eye"></i>
-                        </button>
+                        <input type="password" id="loginPassword" required placeholder="Enter password" class="w-full pl-10 pr-10 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] outline-none">
+                        <button type="button" class="togglePasswordBtn absolute right-3.5 top-3 text-gray-400 text-xs"><i class="fa-regular fa-eye"></i></button>
                     </div>
                 </div>
 
-                <div class="text-xs text-gray-500 bg-pink-50 p-2.5 rounded-xl border border-pink-100">
-                    <p class="font-bold text-gray-700 mb-1">🔑 Demo Quick Login Credentials:</p>
-                    <p>• Admin: <span class="font-mono text-[#D86B81]">admin@blushandbrush.com</span> / <span class="font-mono">admin123</span></p>
-                    <p>• Client: <span class="font-mono text-[#D86B81]">sarah@gmail.com</span> / <span class="font-mono">user123</span></p>
+                <!-- Quick Demo Login Buttons -->
+                <div class="text-[11px] text-gray-600 bg-pink-50 p-2.5 rounded-xl border border-pink-100 space-y-1">
+                    <p class="font-bold text-gray-800">🔑 Quick Demo Login Shortcuts:</p>
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                        <button type="button" id="fillSuperAdminBtn" class="px-2 py-1 bg-purple-600 text-white rounded font-bold text-[10px]">Super Admin</button>
+                        <button type="button" id="fillAdminBtn" class="px-2 py-1 bg-[#D86B81] text-white rounded font-bold text-[10px]">Admin Manager</button>
+                        <button type="button" id="fillClientBtn" class="px-2 py-1 bg-gray-700 text-white rounded font-bold text-[10px]">User / Client</button>
+                    </div>
                 </div>
 
                 <div id="loginErrorMsg" class="hidden text-xs text-red-600 bg-red-50 p-2.5 rounded-xl"></div>
-
-                <button type="submit" class="w-full py-3 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold uppercase tracking-wider rounded-xl shadow-md transition-all">
-                    Login to Account
-                </button>
+                <button type="submit" class="w-full py-3 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold uppercase tracking-wider rounded-xl shadow-md transition-all">Login to Account</button>
             </form>
 
-            <!-- SIGNUP FORM (Hidden by default) -->
+            <!-- SIGNUP FORM -->
             <form id="signupForm" class="hidden space-y-3">
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 mb-1">Full Name</label>
-                    <div class="relative">
-                        <i class="fa-regular fa-user absolute left-3.5 top-3 text-gray-400 text-sm"></i>
-                        <input type="text" id="signupName" required placeholder="e.g. Ayesha Khan" class="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] outline-none">
-                    </div>
+                    <input type="text" id="signupName" required placeholder="e.g. Ayesha Khan" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
                 </div>
-
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 mb-1">Email Address</label>
-                    <div class="relative">
-                        <i class="fa-regular fa-envelope absolute left-3.5 top-3 text-gray-400 text-sm"></i>
-                        <input type="email" id="signupEmail" required placeholder="ayesha@gmail.com" class="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] outline-none">
-                    </div>
+                    <input type="email" id="signupEmail" required placeholder="ayesha@gmail.com" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
                 </div>
-
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 mb-1">Phone Number</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-phone absolute left-3.5 top-3 text-gray-400 text-sm"></i>
-                        <input type="tel" id="signupPhone" required placeholder="+92 300 1234567" class="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] outline-none">
-                    </div>
+                    <input type="tel" id="signupPhone" required placeholder="+92 300 1234567" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
                 </div>
-
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 mb-1">Password</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-lock absolute left-3.5 top-3 text-gray-400 text-sm"></i>
-                        <input type="password" id="signupPassword" required placeholder="Create password" class="w-full pl-10 pr-10 py-2.5 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] outline-none">
-                        <button type="button" class="togglePasswordBtn absolute right-3.5 top-3 text-gray-400 text-xs">
-                            <i class="fa-regular fa-eye"></i>
-                        </button>
-                    </div>
+                    <input type="password" id="signupPassword" required placeholder="Create password" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
                 </div>
-
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 mb-1">Account Role</label>
-                    <select id="signupRole" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 focus:border-[#D86B81] outline-none bg-white">
+                    <select id="signupRole" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none bg-white">
                         <option value="user">Client / User</option>
-                        <option value="admin">Salon Administrator</option>
+                        <option value="admin">Salon Manager (Admin)</option>
+                        <option value="superadmin">Super Admin (System Owner)</option>
                     </select>
                 </div>
-
                 <div id="signupErrorMsg" class="hidden text-xs text-red-600 bg-red-50 p-2.5 rounded-xl"></div>
-
-                <button type="submit" class="w-full py-3 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold uppercase tracking-wider rounded-xl shadow-md transition-all">
-                    Register New Account
-                </button>
+                <button type="submit" class="w-full py-3 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold uppercase tracking-wider rounded-xl shadow-md transition-all">Register New Account</button>
             </form>
-
         </div>
     </div>
 
 
     <!-- =========================================
-         9. USER DASHBOARD MODAL
+         9. USER DASHBOARD (WITH SIDEBAR & TABS)
          ========================================= -->
     <div id="userDashboardModal" class="modal-overlay hidden">
-        <div class="modal-card max-w-4xl w-full p-6 sm:p-8 bg-white rounded-3xl shadow-2xl relative border border-pink-100 max-h-[90vh] overflow-y-auto">
-            <button id="closeUserDashboardBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl p-2">
+        <div class="modal-card max-w-5xl w-full p-0 bg-white rounded-3xl shadow-2xl relative border border-pink-100 max-h-[92vh] overflow-hidden flex flex-col md:flex-row">
+            
+            <!-- Close Button -->
+            <button id="closeUserDashboardBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl p-2 z-10">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- Header -->
-            <div class="flex items-center justify-between border-b border-pink-100 pb-4 mb-6">
-                <div>
-                    <span class="text-[10px] font-bold text-[#D86B81] uppercase tracking-widest">Client Portal</span>
-                    <h3 class="text-2xl font-serif font-bold text-[#2C2627]" id="userNameHeader">Welcome, Client</h3>
-                    <p class="text-xs text-gray-500" id="userEmailHeader">client@example.com</p>
+            <!-- SIDEBAR NAVIGATION -->
+            <aside class="w-full md:w-64 bg-[#FFF5F6] border-r border-pink-100 p-5 flex flex-col justify-between shrink-0">
+                <div class="space-y-6">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold text-[#D86B81] uppercase tracking-widest block">Client Portal</span>
+                        <h4 class="font-serif font-bold text-lg text-[#2C2627]" id="userSidebarName">Client Name</h4>
+                        <p class="text-[11px] text-gray-500 truncate" id="userSidebarEmail">client@example.com</p>
+                    </div>
+
+                    <!-- Sidebar Tabs Menu -->
+                    <nav class="space-y-1.5 text-xs font-semibold">
+                        <button id="userTabNewAppt" class="userNavTab w-full text-left px-3.5 py-2.5 rounded-xl flex items-center space-x-2.5 bg-[#D86B81] text-white shadow-xs">
+                            <i class="fa-solid fa-plus-circle text-sm"></i> <span>New Appointment</span>
+                        </button>
+                        <button id="userTabMyAppts" class="userNavTab w-full text-left px-3.5 py-2.5 rounded-xl flex items-center space-x-2.5 text-gray-700 hover:bg-pink-100/60">
+                            <i class="fa-regular fa-calendar-check text-sm"></i> <span>My Appointments</span>
+                        </button>
+                        <button id="userTabCalendar" class="userNavTab w-full text-left px-3.5 py-2.5 rounded-xl flex items-center space-x-2.5 text-gray-700 hover:bg-pink-100/60">
+                            <i class="fa-regular fa-calendar-days text-sm"></i> <span>Calendar View</span>
+                        </button>
+                        <button id="userTabProfile" class="userNavTab w-full text-left px-3.5 py-2.5 rounded-xl flex items-center space-x-2.5 text-gray-700 hover:bg-pink-100/60">
+                            <i class="fa-solid fa-user-gear text-sm"></i> <span>Profile &amp; Settings</span>
+                        </button>
+                    </nav>
                 </div>
-                <button id="userLogoutBtn" class="px-3.5 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-xl">
-                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
-                </button>
-            </div>
 
-            <!-- Content Grid: Book Appointment Form + My Appointments -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="pt-4 border-t border-pink-200/60">
+                    <button id="userLogoutBtn" class="w-full py-2 bg-gray-200/80 hover:bg-red-100 text-gray-700 hover:text-red-600 text-xs font-semibold rounded-xl transition-colors flex items-center justify-center space-x-1.5">
+                        <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT AREA -->
+            <main class="flex-1 p-6 md:p-8 overflow-y-auto max-h-[92vh]">
                 
-                <!-- Book Appointment Form -->
-                <div class="lg:col-span-5 bg-[#FFF5F6] p-5 rounded-2xl border border-pink-100">
-                    <h4 class="font-serif font-bold text-base text-[#2C2627] mb-3">Book New Appointment</h4>
-                    <form id="userBookingForm" class="space-y-3">
+                <!-- VIEW 1: NEW APPOINTMENT FORM -->
+                <div id="userViewNewAppt" class="userSubView space-y-4">
+                    <div class="border-b border-pink-100 pb-3">
+                        <h3 class="text-xl font-serif font-bold text-[#2C2627]">Schedule a Session</h3>
+                        <p class="text-xs text-gray-500">Fill out your details to request an appointment slot.</p>
+                    </div>
+
+                    <form id="userBookingForm" class="space-y-4 max-w-lg">
                         <div>
-                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Your Full Name</label>
-                            <input type="text" id="bookName" required class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Client Full Name</label>
+                            <input type="text" id="bookName" required class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-pink-200 outline-none">
                         </div>
 
                         <div>
-                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Phone Number</label>
-                            <input type="tel" id="bookPhone" required placeholder="+92 300 1234567" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="bookPhone" required placeholder="+92 300 1234567" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-pink-200 outline-none">
                         </div>
 
                         <div>
-                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Select Service</label>
-                            <select id="bookService" required class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none bg-white">
-                                <option value="">-- Choose a Service --</option>
-                                <option value="Haircut & Styling">Haircut &amp; Styling</option>
-                                <option value="Hair Coloring">Hair Coloring</option>
-                                <option value="Facial Treatment">Facial &amp; Skin Treatment</option>
-                                <option value="Manicure & Pedicure">Manicure &amp; Pedicure</option>
-                                <option value="Spa & Massage">Spa &amp; Body Massage</option>
-                                <option value="Makeup Session">HD Makeup Session</option>
-                                <option value="Hair Treatment">Eyebrow &amp; Lash Treatment</option>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Select Service</label>
+                            <select id="bookService" required class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-pink-200 outline-none bg-white">
+                                <!-- Populated dynamically from API -->
                             </select>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-2">
+                        <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-[11px] font-bold text-gray-700 mb-1">Date</label>
-                                <input type="date" id="bookDate" required class="w-full px-2.5 py-2 text-xs rounded-xl border border-pink-200 outline-none bg-white">
+                                <label class="block text-xs font-semibold text-gray-700 mb-1">Date</label>
+                                <input type="date" id="bookDate" required class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none bg-white">
                             </div>
                             <div>
-                                <label class="block text-[11px] font-bold text-gray-700 mb-1">Time</label>
-                                <input type="time" id="bookTime" required class="w-full px-2.5 py-2 text-xs rounded-xl border border-pink-200 outline-none bg-white">
+                                <label class="block text-xs font-semibold text-gray-700 mb-1">Time</label>
+                                <input type="time" id="bookTime" required class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none bg-white">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Special Remarks / Notes</label>
-                            <textarea id="bookRemarks" rows="2" placeholder="e.g. Skin sensitivity or style preference" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none"></textarea>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Special Remarks / Notes</label>
+                            <textarea id="bookRemarks" rows="2" placeholder="e.g. Skin sensitivity or hairstyle photo reference" class="w-full px-3.5 py-2 text-xs rounded-xl border border-pink-200 outline-none"></textarea>
                         </div>
 
-                        <button type="submit" class="w-full py-2.5 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold uppercase tracking-wider rounded-xl shadow-xs transition-all">
-                            Submit Appointment
+                        <button type="submit" class="w-full py-3 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold uppercase tracking-wider rounded-xl shadow-md transition-all">
+                            Submit Appointment Request
                         </button>
                     </form>
                 </div>
 
-                <!-- My Appointments List -->
-                <div class="lg:col-span-7 space-y-3">
-                    <div class="flex items-center justify-between">
-                        <h4 class="font-serif font-bold text-base text-[#2C2627]">My Booked Appointments</h4>
+
+                <!-- VIEW 2: MY APPOINTMENTS LIST -->
+                <div id="userViewMyAppts" class="userSubView hidden space-y-4">
+                    <div class="flex items-center justify-between border-b border-pink-100 pb-3">
+                        <div>
+                            <h3 class="text-xl font-serif font-bold text-[#2C2627]">My Appointments</h3>
+                            <p class="text-xs text-gray-500">Track status updates &amp; admin custom notes.</p>
+                        </div>
                         <button id="refreshUserApptsBtn" class="text-xs text-[#D86B81] hover:underline font-semibold">
                             <i class="fa-solid fa-arrows-rotate mr-1"></i> Refresh
                         </button>
                     </div>
 
-                    <div id="userAppointmentsContainer" class="space-y-3 min-h-[250px]">
+                    <div id="userAppointmentsContainer" class="space-y-3">
                         <!-- Rendered by JS -->
                     </div>
                 </div>
 
-            </div>
+
+                <!-- VIEW 3: APPOINTMENTS CALENDAR -->
+                <div id="userViewCalendar" class="userSubView hidden space-y-4">
+                    <div class="border-b border-pink-100 pb-3 flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-serif font-bold text-[#2C2627]">Appointments Calendar</h3>
+                            <p class="text-xs text-gray-500">Interactive monthly calendar view of your sessions.</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button id="calPrevMonthBtn" class="p-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs"><i class="fa-solid fa-chevron-left"></i></button>
+                            <span id="calMonthYearTitle" class="font-bold text-xs text-gray-800 min-w-[100px] text-center">Month 2026</span>
+                            <button id="calNextMonthBtn" class="p-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Calendar Grid Container -->
+                    <div id="userCalendarGrid" class="bg-white rounded-2xl border border-pink-100 p-3 shadow-xs">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+
+                <!-- VIEW 4: PROFILE & SECURITY SETTINGS -->
+                <div id="userViewProfile" class="userSubView hidden space-y-6">
+                    <div class="border-b border-pink-100 pb-3">
+                        <h3 class="text-xl font-serif font-bold text-[#2C2627]">Profile &amp; Security Settings</h3>
+                        <p class="text-xs text-gray-500">Manage your contact information and change your password.</p>
+                    </div>
+
+                    <!-- Form A: Update Profile Details -->
+                    <form id="updateProfileForm" class="bg-[#FFF5F6] p-4 sm:p-5 rounded-2xl border border-pink-100 space-y-3 max-w-lg">
+                        <h4 class="font-serif font-bold text-sm text-[#2C2627]">Personal Information</h4>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="profileNameInput" required class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="profilePhoneInput" required class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Email (Read-only)</label>
+                            <input type="email" id="profileEmailInput" disabled class="w-full px-3 py-2 text-xs rounded-xl border border-gray-200 bg-gray-100 text-gray-500 cursor-not-allowed">
+                        </div>
+                        <button type="submit" class="px-5 py-2 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold rounded-xl">Save Profile Details</button>
+                    </form>
+
+                    <!-- Form B: Update Password -->
+                    <form id="updatePasswordForm" class="bg-white p-4 sm:p-5 rounded-2xl border border-pink-200 space-y-3 max-w-lg">
+                        <h4 class="font-serif font-bold text-sm text-[#2C2627]">Change Security Password</h4>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Current Password</label>
+                            <input type="password" id="currentPasswordInput" required placeholder="Enter current password" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">New Password</label>
+                            <input type="password" id="newPasswordInput" required placeholder="Min 6 characters" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Confirm New Password</label>
+                            <input type="password" id="confirmNewPasswordInput" required placeholder="Repeat new password" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none">
+                        </div>
+                        <button type="submit" class="px-5 py-2 bg-gray-800 hover:bg-black text-white text-xs font-semibold rounded-xl">Update Password</button>
+                    </form>
+                </div>
+
+            </main>
 
         </div>
     </div>
 
 
     <!-- =========================================
-         10. ADMIN DASHBOARD MODAL
+         10. ADMIN DASHBOARD (RESTRICTED)
          ========================================= -->
     <div id="adminDashboardModal" class="modal-overlay hidden">
         <div class="modal-card max-w-6xl w-full p-6 sm:p-8 bg-white rounded-3xl shadow-2xl relative border border-pink-100 max-h-[92vh] overflow-y-auto">
@@ -661,83 +583,117 @@
             </button>
 
             <!-- Admin Header -->
-            <div class="flex flex-wrap items-center justify-between border-b border-pink-100 pb-4 mb-6 gap-4">
+            <div class="flex flex-wrap items-center justify-between border-b border-pink-100 pb-4 mb-5 gap-4">
                 <div>
-                    <span class="text-[10px] font-bold text-[#D86B81] uppercase tracking-widest">Salon Management System</span>
+                    <span class="text-[10px] font-bold text-[#D86B81] uppercase tracking-widest">Salon Staff Portal</span>
                     <h3 class="text-2xl font-serif font-bold text-[#2C2627]">Administrator Dashboard</h3>
-                    <p class="text-xs text-gray-500" id="adminDateDisplay">Today's Schedule &amp; Client Overview</p>
+                    <p class="text-xs text-gray-500">Manage client schedules, services catalog &amp; announcements.</p>
+                </div>
+                <button id="adminLogoutBtn" class="px-3.5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-xl">
+                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
+                </button>
+            </div>
+
+            <!-- Admin Nav Tabs -->
+            <div class="flex border-b border-pink-100 mb-6 text-xs font-bold uppercase tracking-wider space-x-4">
+                <button id="adminTabAppts" class="adminNavTab py-2 text-[#D86B81] border-b-2 border-[#D86B81]">
+                    <i class="fa-regular fa-calendar-check mr-1"></i> Appointments
+                </button>
+                <button id="adminTabServices" class="adminNavTab py-2 text-gray-400 border-b-2 border-transparent hover:text-gray-600">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Add / Manage Services
+                </button>
+                <button id="adminTabAnnouncements" class="adminNavTab py-2 text-gray-400 border-b-2 border-transparent hover:text-gray-600">
+                    <i class="fa-solid fa-bullhorn mr-1"></i> Announcements
+                </button>
+            </div>
+
+            <!-- ADMIN TAB 1: APPOINTMENTS -->
+            <div id="adminPanelAppts" class="adminPanel space-y-4">
+                <!-- Summary Metrics -->
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                    <div class="bg-pink-50 p-3 rounded-2xl border border-pink-100 text-center"><span class="block text-xl font-bold text-[#D86B81]" id="countTotal">0</span><span class="text-[9px] font-bold text-gray-600 uppercase">Total</span></div>
+                    <div class="bg-amber-50 p-3 rounded-2xl border border-amber-100 text-center"><span class="block text-xl font-bold text-amber-600" id="countPending">0</span><span class="text-[9px] font-bold text-gray-600 uppercase">Pending</span></div>
+                    <div class="bg-blue-50 p-3 rounded-2xl border border-blue-100 text-center"><span class="block text-xl font-bold text-blue-600" id="countUpcoming">0</span><span class="text-[9px] font-bold text-gray-600 uppercase">Upcoming</span></div>
+                    <div class="bg-emerald-50 p-3 rounded-2xl border border-emerald-100 text-center"><span class="block text-xl font-bold text-emerald-600" id="countCompleted">0</span><span class="text-[9px] font-bold text-gray-600 uppercase">Completed</span></div>
+                    <div class="bg-rose-50 p-3 rounded-2xl border border-rose-100 text-center col-span-2 sm:col-span-1"><span class="block text-xl font-bold text-rose-600" id="countCancelled">0</span><span class="text-[9px] font-bold text-gray-600 uppercase">Cancelled</span></div>
                 </div>
 
-                <div class="flex items-center space-x-3">
-                    <button id="adminAddApptBtn" class="px-4 py-2 bg-[#D86B81] hover:bg-[#c4576d] text-white text-xs font-semibold rounded-xl shadow-xs">
-                        <i class="fa-solid fa-plus mr-1"></i> Add Appointment
-                    </button>
-                    <button id="adminLogoutBtn" class="px-3.5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-xl">
-                        <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
-                    </button>
+                <!-- Filters -->
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-semibold text-gray-600">Filter:</span>
+                        <select id="adminStatusFilter" class="px-3 py-1.5 text-xs rounded-xl border border-pink-200 outline-none bg-white">
+                            <option value="ALL">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Upcoming">Upcoming / Accepted</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled / Rejected</option>
+                        </select>
+                    </div>
+                    <input type="text" id="adminSearchInput" placeholder="Search client or service..." class="px-3 py-1.5 text-xs rounded-xl border border-pink-200 outline-none w-56">
+                </div>
+
+                <!-- Table -->
+                <div class="overflow-x-auto rounded-2xl border border-pink-100 shadow-xs">
+                    <table class="w-full text-left text-xs text-gray-700">
+                        <thead class="bg-[#FFF5F6] text-gray-800 uppercase font-bold text-[10px] tracking-wider border-b border-pink-100">
+                            <tr>
+                                <th class="p-3">Time &amp; Date</th>
+                                <th class="p-3">Client</th>
+                                <th class="p-3">Service</th>
+                                <th class="p-3">Phone</th>
+                                <th class="p-3">Status</th>
+                                <th class="p-3">Client Note / Admin Note</th>
+                                <th class="p-3 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody" class="divide-y divide-pink-50"></tbody>
+                    </table>
                 </div>
             </div>
 
-            <!-- Metric Summary Cards -->
-            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
-                <div class="bg-pink-50 p-4 rounded-2xl border border-pink-100 text-center">
-                    <span class="block text-2xl font-serif font-bold text-[#D86B81]" id="countTotal">0</span>
-                    <span class="text-[10px] font-bold text-gray-600 uppercase">Total</span>
-                </div>
-                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 text-center">
-                    <span class="block text-2xl font-serif font-bold text-amber-600" id="countPending">0</span>
-                    <span class="text-[10px] font-bold text-gray-600 uppercase">Pending</span>
-                </div>
-                <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 text-center">
-                    <span class="block text-2xl font-serif font-bold text-blue-600" id="countUpcoming">0</span>
-                    <span class="text-[10px] font-bold text-gray-600 uppercase">Upcoming</span>
-                </div>
-                <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 text-center">
-                    <span class="block text-2xl font-serif font-bold text-emerald-600" id="countCompleted">0</span>
-                    <span class="text-[10px] font-bold text-gray-600 uppercase">Completed</span>
-                </div>
-                <div class="bg-rose-50 p-4 rounded-2xl border border-rose-100 text-center col-span-2 sm:col-span-1">
-                    <span class="block text-2xl font-serif font-bold text-rose-600" id="countCancelled">0</span>
-                    <span class="text-[10px] font-bold text-gray-600 uppercase">Cancelled</span>
+            <!-- ADMIN TAB 2: MANAGE SERVICES -->
+            <div id="adminPanelServices" class="adminPanel hidden space-y-6">
+                <form id="addServiceForm" class="bg-[#FFF5F6] p-4 sm:p-5 rounded-2xl border border-pink-100 space-y-3">
+                    <h4 class="font-serif font-bold text-base text-[#2C2627]">Add New Salon Service</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div><label class="block text-xs font-semibold text-gray-700 mb-1">Service Name</label><input type="text" id="serviceNameInput" required placeholder="e.g. Keratin Hair Treatment" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none"></div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Category</label>
+                            <select id="serviceCatInput" required class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none bg-white">
+                                <option value="Hair">Hair Care</option>
+                                <option value="Skin">Skin Care</option>
+                                <option value="Nails">Nail Art</option>
+                                <option value="Body">Spa & Body</option>
+                                <option value="Makeup">Makeup & Bridal</option>
+                            </select>
+                        </div>
+                        <div><label class="block text-xs font-semibold text-gray-700 mb-1">Price (PKR)</label><input type="number" id="servicePriceInput" required placeholder="8500" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none"></div>
+                        <div><label class="block text-xs font-semibold text-gray-700 mb-1">Duration</label><input type="text" id="serviceDurationInput" required placeholder="e.g. 60 mins" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none"></div>
+                    </div>
+                    <div><label class="block text-xs font-semibold text-gray-700 mb-1">Description</label><input type="text" id="serviceDescInput" placeholder="Brief service details" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none"></div>
+                    <button type="submit" class="px-5 py-2 bg-[#D86B81] text-white text-xs font-semibold rounded-xl">Add Service to Catalog</button>
+                </form>
+
+                <div>
+                    <h4 class="font-serif font-bold text-base text-[#2C2627] mb-3">Current Active Services</h4>
+                    <div id="adminServicesList" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
                 </div>
             </div>
 
-            <!-- Filter & Search Controls -->
-            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-                <div class="flex items-center space-x-2">
-                    <span class="text-xs font-semibold text-gray-600">Filter Status:</span>
-                    <select id="adminStatusFilter" class="px-3 py-1.5 text-xs rounded-xl border border-pink-200 outline-none bg-white">
-                        <option value="ALL">All Statuses</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Upcoming">Upcoming / Accepted</option>
-                        <option value="Completed">Completed</option>
-                        <option value="Cancelled">Cancelled / Rejected</option>
-                    </select>
-                </div>
-                <div class="relative w-full sm:w-64">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400 text-xs"></i>
-                    <input type="text" id="adminSearchInput" placeholder="Search by client or service..." class="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl border border-pink-200 outline-none">
-                </div>
-            </div>
+            <!-- ADMIN TAB 3: ANNOUNCEMENTS -->
+            <div id="adminPanelAnnouncements" class="adminPanel hidden space-y-6">
+                <form id="addAnnouncementForm" class="bg-[#FFF5F6] p-4 sm:p-5 rounded-2xl border border-pink-100 space-y-3">
+                    <h4 class="font-serif font-bold text-base text-[#2C2627]">Publish New Announcement</h4>
+                    <div><label class="block text-xs font-semibold text-gray-700 mb-1">Title</label><input type="text" id="annTitleInput" required placeholder="e.g. 25% Off Summer Promo!" class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none"></div>
+                    <div><label class="block text-xs font-semibold text-gray-700 mb-1">Announcement Message</label><textarea id="annContentInput" rows="3" required placeholder="Details of discount or news..." class="w-full px-3 py-2 text-xs rounded-xl border border-pink-200 outline-none"></textarea></div>
+                    <button type="submit" class="px-5 py-2 bg-[#D86B81] text-white text-xs font-semibold rounded-xl">Publish Announcement</button>
+                </form>
 
-            <!-- Appointments Table -->
-            <div class="overflow-x-auto rounded-2xl border border-pink-100 shadow-xs">
-                <table class="w-full text-left text-xs text-gray-700">
-                    <thead class="bg-[#FFF5F6] text-gray-800 uppercase font-bold text-[10px] tracking-wider border-b border-pink-100">
-                        <tr>
-                            <th class="p-3">Time &amp; Date</th>
-                            <th class="p-3">Client</th>
-                            <th class="p-3">Service</th>
-                            <th class="p-3">Phone</th>
-                            <th class="p-3">Status</th>
-                            <th class="p-3">Client Note / Admin Message</th>
-                            <th class="p-3 text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminTableBody" class="divide-y divide-pink-50">
-                        <!-- Rendered by JS -->
-                    </tbody>
-                </table>
+                <div>
+                    <h4 class="font-serif font-bold text-base text-[#2C2627] mb-3">Active Announcements</h4>
+                    <div id="adminAnnouncementsList" class="space-y-3"></div>
+                </div>
             </div>
 
         </div>
@@ -745,7 +701,109 @@
 
 
     <!-- =========================================
-         11. ADMIN SEND CUSTOM MESSAGE MODAL
+         11. SUPER ADMIN DASHBOARD SUITE (FULL ACCESS)
+         ========================================= -->
+    <div id="superAdminDashboardModal" class="modal-overlay hidden">
+        <div class="modal-card max-w-6xl w-full p-6 sm:p-8 bg-white rounded-3xl shadow-2xl relative border-2 border-purple-200 max-h-[92vh] overflow-y-auto">
+            <button id="closeSuperAdminDashboardBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Super Admin Header -->
+            <div class="flex flex-wrap items-center justify-between border-b border-purple-100 pb-4 mb-5 gap-4">
+                <div>
+                    <span class="text-[10px] font-bold text-purple-700 uppercase tracking-widest px-2.5 py-0.5 bg-purple-100 rounded-full">🛡️ Super Admin Control Center</span>
+                    <h3 class="text-2xl font-serif font-bold text-gray-900 mt-1">System Owner Suite</h3>
+                    <p class="text-xs text-gray-500">Full system access: User Management, Products Inventory &amp; Passwords Controls.</p>
+                </div>
+                <button id="superAdminLogoutBtn" class="px-3.5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-xl">
+                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
+                </button>
+            </div>
+
+            <!-- Super Admin Navigation Tabs -->
+            <div class="flex flex-wrap border-b border-purple-100 mb-6 text-xs font-bold uppercase tracking-wider gap-4">
+                <button id="superTabUsers" class="superNavTab py-2 text-purple-700 border-b-2 border-purple-700">
+                    <i class="fa-solid fa-users-gear mr-1"></i> User Management System
+                </button>
+                <button id="superTabProducts" class="superNavTab py-2 text-gray-400 border-b-2 border-transparent hover:text-gray-600">
+                    <i class="fa-solid fa-boxes-packing mr-1"></i> Product Management System
+                </button>
+                <button id="superTabPass" class="superNavTab py-2 text-gray-400 border-b-2 border-transparent hover:text-gray-600">
+                    <i class="fa-solid fa-key mr-1"></i> Password &amp; Security Controls
+                </button>
+            </div>
+
+            <!-- SUPER ADMIN TAB 1: USER MANAGEMENT -->
+            <div id="superPanelUsers" class="superPanel space-y-4">
+                <div class="flex items-center justify-between">
+                    <h4 class="font-serif font-bold text-base text-gray-900">All Registered Accounts</h4>
+                    <span class="text-xs text-purple-700 font-semibold" id="totalUserCountTag">0 Total Users</span>
+                </div>
+                
+                <div class="overflow-x-auto rounded-2xl border border-purple-100 shadow-xs">
+                    <table class="w-full text-left text-xs text-gray-700">
+                        <thead class="bg-purple-50 text-purple-900 uppercase font-bold text-[10px] tracking-wider border-b border-purple-100">
+                            <tr>
+                                <th class="p-3">User ID</th>
+                                <th class="p-3">Name</th>
+                                <th class="p-3">Email</th>
+                                <th class="p-3">Phone</th>
+                                <th class="p-3">Role</th>
+                                <th class="p-3 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="superUsersTableBody" class="divide-y divide-purple-50"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SUPER ADMIN TAB 2: PRODUCT MANAGEMENT -->
+            <div id="superPanelProducts" class="superPanel hidden space-y-6">
+                <form id="addProductForm" class="bg-purple-50/50 p-4 sm:p-5 rounded-2xl border border-purple-100 space-y-3">
+                    <h4 class="font-serif font-bold text-base text-purple-900">Add New Beauty Product to Catalog</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div><label class="block text-xs font-semibold text-gray-700 mb-1">Product Name</label><input type="text" id="prodNameInput" required placeholder="e.g. Organic Glow Serum" class="w-full px-3 py-2 text-xs rounded-xl border border-purple-200 outline-none"></div>
+                        <div><label class="block text-xs font-semibold text-gray-700 mb-1">Category</label><input type="text" id="prodCatInput" required placeholder="e.g. Skin Care" class="w-full px-3 py-2 text-xs rounded-xl border border-purple-200 outline-none"></div>
+                        <div><label class="block text-xs font-semibold text-gray-700 mb-1">Price (PKR)</label><input type="number" id="prodPriceInput" required placeholder="2800" class="w-full px-3 py-2 text-xs rounded-xl border border-purple-200 outline-none"></div>
+                        <div><label class="block text-xs font-semibold text-gray-700 mb-1">Stock Level</label><input type="number" id="prodStockInput" required placeholder="50" class="w-full px-3 py-2 text-xs rounded-xl border border-purple-200 outline-none"></div>
+                    </div>
+                    <div><label class="block text-xs font-semibold text-gray-700 mb-1">Description</label><input type="text" id="prodDescInput" placeholder="Brief product summary" class="w-full px-3 py-2 text-xs rounded-xl border border-purple-200 outline-none"></div>
+                    <button type="submit" class="px-5 py-2 bg-purple-700 hover:bg-purple-800 text-white text-xs font-semibold rounded-xl">Add Product to Inventory</button>
+                </form>
+
+                <div>
+                    <h4 class="font-serif font-bold text-base text-gray-900 mb-3">Product Inventory</h4>
+                    <div id="superProductsGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
+                </div>
+            </div>
+
+            <!-- SUPER ADMIN TAB 3: PASSWORD MANAGEMENT -->
+            <div id="superPanelPass" class="superPanel hidden space-y-6">
+                <form id="superResetPasswordForm" class="bg-purple-50/50 p-5 rounded-2xl border border-purple-100 space-y-4 max-w-md">
+                    <h4 class="font-serif font-bold text-base text-purple-900">Administrative Password Reset</h4>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Select User Account</label>
+                        <select id="superResetUserSelect" required class="w-full px-3 py-2 text-xs rounded-xl border border-purple-200 outline-none bg-white">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">New Password</label>
+                        <input type="password" id="superNewPasswordInput" required placeholder="Enter new password (min 6 chars)" class="w-full px-3 py-2 text-xs rounded-xl border border-purple-200 outline-none">
+                    </div>
+                    <button type="submit" class="w-full py-2.5 bg-purple-700 hover:bg-purple-800 text-white text-xs font-semibold uppercase tracking-wider rounded-xl">
+                        Force Reset Password
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =========================================
+         12. ADMIN SEND CUSTOM MESSAGE MODAL
          ========================================= -->
     <div id="adminMessageModal" class="modal-overlay hidden">
         <div class="modal-card max-w-md w-full p-6 bg-white rounded-3xl shadow-2xl relative border border-pink-100">
